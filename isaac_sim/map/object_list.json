@@ -1,0 +1,53 @@
+{
+  "box": [
+    "SM_CardBoxA_02",
+    "SM_CardBoxD_04"
+  ],
+  "wet_floor_sign": [
+    "S_WetFloorSign"
+  ],
+  "traffic_cone": [
+    "S_TrafficCone"
+  ],
+  "fire_extinguisher": [
+    "SM_FireExtinguisher_02"
+  ],
+  "chair": [
+    "SM_Chair_04a",
+    "SM_ChairOffice",
+    "SM_Recliner"
+  ],
+  "water_dispenser": [
+    "SM_WaterDispenser_01a"
+  ],
+  "medical_bag": [
+    "SM_MedicalBag_01a"
+  ],
+  "trash_can": [
+    "SM_TrashCan"
+  ],
+  "laptop": [
+    "SM_Laptop"
+  ],
+  "monitor": [
+    "SM_MonitorPC",
+    "SM_Computer_02b"
+  ],
+  "potted_plant": [
+    "SM_Plant01",
+    "SM_Plant02",
+    "SM_Plant03"
+  ],
+  "rubiks_cube": [
+    "rubiks_cube"
+  ],
+  "table": [
+    "SM_HeavyDutyPackingTable_C02_01"
+  ],
+  "mug": [
+    "SM_Mug_A2",
+    "SM_Mug_B1",
+    "SM_Mug_C1",
+    "SM_Mug_D1"
+  ]
+}
