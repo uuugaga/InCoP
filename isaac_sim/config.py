@@ -1,54 +1,36 @@
 import os
 
-# ==========================================
-# 資料夾與儲存路徑
-# ==========================================
 BASE_SAVE_PATH = os.path.expanduser("~/_my_code/Dataset")
 
 SUB_FOLDERS = [
     "data/rgb", 
     "data/lidar", 
-    "data/imu", 
-    "data/pose",
-    "label/depth", 
-    "label/detection_raw/2d_tight_raw", 
-    "label/detection_raw/2d_loose_raw",
-    "label/detection_raw/3d_raw",
-    "label/segmentation/semantic", 
-    "label/segmentation/instance",
-    "label/occupancy/3d", 
-    "label/occupancy/2d_bev",
+    "data/depth",
+    "label/detection/2d_tight", 
+    "label/detection/2d_loose",
+    "label/detection/3d",
+    "label/segmentation/semantic",
 ]
 
-# ==========================================
-# 佔用網格 (Occupancy Grid) 設定
-# ==========================================
-GRID_CFG = {
-    'voxel_size': 0.2,
-    'range_xy': 10.0,
-    'range_z': 10.0,
-    'dim': (50, 50, 25)
-}
+LIDAR_RECORD_FOV_DEG = 90.0
+LIDAR_FOV_COMPLETENESS_BINS = 9
+LIDAR_FOV_COMPLETENESS_MIN_POINTS = 8
+LIDAR_FOV_COMPLETENESS_MIN_RATIO = 0.20
 
-# ==========================================
-# 機器人硬體規格 (Jackal)
-# ==========================================
 WHEEL_RADIUS = 0.098
 WHEEL_BASE = 0.375
-
-
 
 KEEP_CLASSES = ["box", 
                 "wet_floor_sign", 
                 "traffic_cone", 
                 "fire_extinguisher", 
                 "chair",
-                "water_dispenser",
                 "medical_bag",
                 "trash_can",
                 "laptop",
                 "monitor",
-                "potted_plant",
+                "plant",
                 "rubiks_cube",
                 "table",
+                "mug",
                 ] 

@@ -1,16 +1,14 @@
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 from matplotlib.patches import Polygon
 import numpy as np
+import json
 import pickle, cv2, os, networkx as nx
 import yaml
 from scipy.spatial import KDTree
 import concurrent.futures
 import multiprocessing
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
 
 class DualCoveragePlanner:
     def __init__(self, 
@@ -269,328 +267,291 @@ class DualCoveragePlanner:
         print(f">> 經過視野重複性過濾 (new_info > {min_new_info})，共保留 {len(selected_pairs)} 組精華組合。")
         return selected_pairs
 
-    # ================= 3. Dual Route Planning =================
+    def _path_key(self, edge, directed=True):
+        """Return a split identity for a directed or undirected robot path."""
+        edge_key = tuple(tuple(node) for node in edge)
+        if directed:
+            return edge_key
+        return min(edge_key, tuple(reversed(edge_key)))
 
-    def _get_path_with_no_uturn(self, start_node, target_node, prev_node):
-        """Helper to find shortest path while strictly preventing U-Turns unless dead end."""
-        temporarily_removed = None
-        if prev_node is not None and self.G.has_edge(start_node, prev_node):
-            edge_data = self.G.get_edge_data(start_node, prev_node)
-            self.G.remove_edge(start_node, prev_node)
-            temporarily_removed = (start_node, prev_node, edge_data)
-
-        path, dist = None, float('inf')
-        try:
-            path = nx.dijkstra_path(self.G, start_node, target_node, weight='weight')
-            dist = nx.path_weight(self.G, path, 'weight')
-        except nx.NetworkXNoPath:
-            if temporarily_removed:
-                u, v, data = temporarily_removed
-                self.G.add_edge(u, v, **data)
-                temporarily_removed = None
-                try:
-                    path = nx.dijkstra_path(self.G, start_node, target_node, weight='weight')
-                    dist = nx.path_weight(self.G, path, 'weight')
-                except nx.NetworkXNoPath:
-                    pass
-
-        if temporarily_removed:
-            u, v, data = temporarily_removed
-            self.G.add_edge(u, v, **data)
-
-        return path, dist
-    
-    def _build_dual_tsp_matrix(self, start_n1, start_n2, target_pairs):
-        """
-        為 OR-Tools 建立雙機轉移矩陣
-        target_pairs: list of ((u1, v1), (u2, v2))
-        """
-        N = len(target_pairs)
-        matrix = np.zeros((N + 1, N + 1), dtype=int)
-        SCALE = 1000
-        MAX_VAL = 999999999
-
-        # Helper: 單機的 Dijkstra 最短距離
-        def get_dist(n_start, n_end):
-            try:
-                return nx.dijkstra_path_length(self.G, n_start, n_end, weight='weight')
-            except nx.NetworkXNoPath:
-                return MAX_VAL / SCALE
-
-        # 1. 計算起點 (Index 0) 到各 Pair 起點 (Index 1~N) 的距離
-        for j, (e1, e2) in enumerate(target_pairs):
-            d1 = get_dist(start_n1, e1[0])
-            d2 = get_dist(start_n2, e2[0])
-            # 以花費時間最長的機器人為成本 (因為要互相等待)
-            matrix[0][j+1] = int(max(d1, d2) * SCALE)
-
-        # 2. 計算各個 Pair 之間的轉移距離
-        for i, (from_e1, from_e2) in enumerate(target_pairs):
-            for j, (to_e1, to_e2) in enumerate(target_pairs):
-                if i == j:
-                    matrix[i+1][j+1] = MAX_VAL
-                    continue
-                
-                # 從上一個 Pair 的結束點 (v)，走到下一個 Pair 的起始點 (u)
-                d1 = get_dist(from_e1[1], to_e1[0])
-                d2 = get_dist(from_e2[1], to_e2[0])
-                
-                # 同理，取 max 代表整體執行的步數/時間代價
-                matrix[i+1][j+1] = int(max(d1, d2) * SCALE)
-            
-            # 回到起點的距離設為 0 (Open-ended TSP，不強制回起點)
-            matrix[i+1][0] = 0
-
-        return matrix.tolist()
-
-    def _solve_dual_tsp_sequence(self, distance_matrix):
-        """呼叫 Google OR-Tools 求解雙機全局最短序列"""
-        manager = pywrapcp.RoutingIndexManager(len(distance_matrix), 1, 0)
-        routing = pywrapcp.RoutingModel(manager)
-
-        def distance_callback(from_index, to_index):
-            from_node = manager.IndexToNode(from_index)
-            to_node = manager.IndexToNode(to_index)
-            return distance_matrix[from_node][to_node]
-
-        transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-        routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
-
-        search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-        search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
-        search_parameters.time_limit.seconds = 5  # 給予 5 秒最佳化時間
-
-        print(">> Running OR-Tools Dual-TSP Solver...")
-        solution = routing.SolveWithParameters(search_parameters)
-
-        if solution:
-            index = routing.Start(0)
-            route = []
-            while not routing.IsEnd(index):
-                route.append(manager.IndexToNode(index))
-                index = solution.Value(routing.NextVar(index))
-            return route
-        return None
-
-    def _select_essential_pairs(self, reward_map):
-        """從 reward_map 中挑選出能覆蓋全局的『最少必要黃金組合』(Set Cover)"""
-        print(">> Selecting essential dual-pairs for maximum global coverage...")
-        uncovered = set(range(len(self.boundary_pts)))
-        essential_pairs = []
-        
-        # 1. 建立方便查詢的快取，並剔除重複方向的 Pair (e1, e2) 與 (e2, e1)
-        pair_coverage_cache = {}
-        for (e1, e2), data in reward_map.items():
-            fs = frozenset([e1, e2])
-            if fs in pair_coverage_cache: continue
-            
-            s1 = self.dir_edge_states[e1][data['best_idx']]
-            s2 = self.dir_edge_states[e2][data['best_idx']]
-            combined_v = s1['V'] | s2['V']
-            
-            pair_coverage_cache[fs] = {
-                'e1': e1, 'e2': e2, 'V': combined_v, 'score': data['score']
-            }
-
-        # 2. Set Cover 貪婪挑選：每次挑選能看到「最多新東西」的組合
-        while uncovered:
-            best_pair_key = None
-            best_new_cov = 0
-            
-            for fs, info in pair_coverage_cache.items():
-                # 若已經選過則跳過
-                if fs in [frozenset([p['e1'], p['e2']]) for p in essential_pairs]:
-                    continue
-                    
-                new_cov = len(info['V'] & uncovered)
-                
-                # 優先選能看到最多新點的；若數量一樣，選 Synergy 分數較高的
-                if new_cov > best_new_cov:
-                    best_new_cov = new_cov
-                    best_pair_key = fs
-                elif new_cov > 0 and new_cov == best_new_cov:
-                    if info['score'] > pair_coverage_cache[best_pair_key]['score']:
-                        best_pair_key = fs
-                        
-            # 如果剩下的組合都看不到新東西了，就提早結束
-            if best_new_cov == 0:
-                break
-                
-            best_info = pair_coverage_cache[best_pair_key]
-            essential_pairs.append({'e1': best_info['e1'], 'e2': best_info['e2']})
-            uncovered -= best_info['V']
-            
-        print(f">> Selected {len(essential_pairs)} essential pairs from {len(reward_map)//2} candidates.")
-        return essential_pairs
-    
-    def _build_dual_tsp_matrix(self, start_n1, start_n2, target_pairs):
-        """為 OR-Tools 建立雙機轉移成本矩陣 (以走得慢的那台車為成本)"""
-        N = len(target_pairs)
-        matrix = np.zeros((N + 1, N + 1), dtype=int)
-        SCALE = 1000
-        MAX_VAL = 999999999
-
-        def get_dist(n_start, n_end):
-            if n_start == n_end: return 0
-            try: return nx.dijkstra_path_length(self.G, n_start, n_end, weight='weight')
-            except nx.NetworkXNoPath: return MAX_VAL / SCALE
-
-        # 1. 計算起點到各 Pair 的距離
-        for j, (e1, e2) in enumerate(target_pairs):
-            d1 = get_dist(start_n1, e1[0])
-            d2 = get_dist(start_n2, e2[0])
-            matrix[0][j+1] = int(max(d1, d2) * SCALE) # 取最大值，因為要互相等待
-
-        # 2. 計算 Pair 之間的轉移距離
-        for i, (from_e1, from_e2) in enumerate(target_pairs):
-            for j, (to_e1, to_e2) in enumerate(target_pairs):
-                if i == j:
-                    matrix[i+1][j+1] = MAX_VAL
-                    continue
-                d1 = get_dist(from_e1[1], to_e1[0])
-                d2 = get_dist(from_e2[1], to_e2[0])
-                matrix[i+1][j+1] = int(max(d1, d2) * SCALE)
-            matrix[i+1][0] = 0 # 允許不回起點
-
-        return matrix.tolist()
-
-    def _solve_dual_tsp_sequence(self, distance_matrix):
-        manager = pywrapcp.RoutingIndexManager(len(distance_matrix), 1, 0)
-        routing = pywrapcp.RoutingModel(manager)
-
-        def distance_callback(from_index, to_index):
-            return distance_matrix[manager.IndexToNode(from_index)][manager.IndexToNode(to_index)]
-
-        transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-        routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
-
-        search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
-        search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
-        search_parameters.time_limit.seconds = 5  
-
-        solution = routing.SolveWithParameters(search_parameters)
-        if solution:
-            index = routing.Start(0)
-            route = []
-            while not routing.IsEnd(index):
-                route.append(manager.IndexToNode(index))
-                index = solution.Value(routing.NextVar(index))
-            return route
-        return None
-
-    def plan_dual_trajectory(self, reward_map, start_n1="auto", start_n2="auto"):
-        """結合 Set Cover 與 OR-Tools 的終極雙機路由規劃"""
-        
-        # 1. 精煉目標：選出最少且能涵蓋全局的必要 Pair
-        essential_pairs_info = self._select_essential_pairs(reward_map)
-        target_pairs = [(info['e1'], info['e2']) for info in essential_pairs_info]
-        
-        if not target_pairs:
-            print(">> Error: No valid synergistic pairs found to plan route.")
-            return [], []
-
-        # 2. 決定起點
-        if start_n1 == "auto" or start_n2 == "auto":
-            start_n1 = target_pairs[0][0][0]
-            start_n2 = target_pairs[0][1][0]
-            print(f">> Auto Start Selected -> R1: {start_n1}, R2: {start_n2}")
-
-        print(f">> Formulating Dual TSP Sequence with {len(target_pairs)} Essential Pairs...")
-        
-        # 3. 建立矩陣並呼叫 OR-Tools 求解全局最短序列
-        dist_matrix = self._build_dual_tsp_matrix(start_n1, start_n2, target_pairs)
-        route_indices = self._solve_dual_tsp_sequence(dist_matrix)
-
-        if not route_indices:
-            print(">> OR-Tools TSP Failed. Returning start nodes only.")
-            return [start_n1], [start_n2]
-
-        # 4. 根據最佳序列生成實體物理路徑 (防 U-Turn 接軌)
-        path1, path2 = [start_n1], [start_n2]
-        
-        for k in range(len(route_indices) - 1):
-            from_idx = route_indices[k]
-            to_idx = route_indices[k+1]
-            if to_idx == 0: break 
-            
-            target_e1, target_e2 = target_pairs[to_idx - 1]
-            
-            # 使用你寫好的無 U-Turn 邏輯前往下一個點
-            p1, _ = self._get_path_with_no_uturn(path1[-1], target_e1[0], path1[-2] if len(path1)>1 else None)
-            p2, _ = self._get_path_with_no_uturn(path2[-1], target_e2[0], path2[-2] if len(path2)>1 else None)
-            
-            # 串接路徑 (避開首尾重複)
-            if p1 and len(p1) > 1: path1.extend(p1[1:])
-            elif not p1 and path1[-1] != target_e1[0]: path1.append(target_e1[0]) # 防呆硬接
-                
-            if p2 and len(p2) > 1: path2.extend(p2[1:])
-            elif not p2 and path2[-1] != target_e2[0]: path2.append(target_e2[0])
-            
-            # 執行該目標特徵邊的掃描
-            if path1[-1] != target_e1[1]: path1.append(target_e1[1])
-            if path2[-1] != target_e2[1]: path2.append(target_e2[1])
-
-        print(f">> Dual Global Plan Completed! Total nodes -> R1: {len(path1)}, R2: {len(path2)}")
-        return path1, path2
-
-    def calculate_full_path_statistics(self, path1, path2):
-        print(">> Calculating comprehensive Full-Path Statistics & Global Coverage...")
-        stats = []
-        edges1 = [(path1[i], path1[i+1]) for i in range(len(path1)-1)] if len(path1) > 1 else []
-        edges2 = [(path2[i], path2[i+1]) for i in range(len(path2)-1)] if len(path2) > 1 else []
-        
-        max_steps = max(len(edges1), len(edges2))
-        total_seen = set() # 新增：用來追蹤全局不重複覆蓋點
-        
-        for i in range(max_steps):
-            e1 = edges1[i] if i < len(edges1) else (path1[-1], path1[-1])
-            e2 = edges2[i] if i < len(edges2) else (path2[-1], path2[-1])
-            
-            states1 = self.dir_edge_states.get(e1, [])
-            states2 = self.dir_edge_states.get(e2, [])
-            
-            # 累加走過這條邊時，所有影格中兩台機器人能看到的所有特徵點
-            for s in states1: total_seen.update(s['V'])
-            for s in states2: total_seen.update(s['V'])
-            
-            if e1[0] == e1[1] or e2[0] == e2[1]:
-                stats.append({'overlap': 0, 'comp1': 0, 'comp2': 0})
-                continue
-                
-            if not states1 or not states2:
-                stats.append({'overlap': 0, 'comp1': 0, 'comp2': 0})
-                continue
-                
-            best_overlap, best_comp1, best_comp2 = 0, 0, 0
-            best_score = -1
-            
-            for s1, s2 in zip(states1, states2):
-                ov = len(s1['V'] & s2['V'])
-                c1 = len(s2['Shadow'] & s1['V'])
-                c2 = len(s1['Shadow'] & s2['V'])
-                score = c1 + c2 + (ov * 0.1)
-                
-                if score > best_score:
-                    best_score = score
-                    best_overlap, best_comp1, best_comp2 = ov, c1, c2
-                    
-            stats.append({'overlap': best_overlap, 'comp1': best_comp1, 'comp2': best_comp2})
-            
-        total_pts = len(self.boundary_pts)
-        coverage_percent = (len(total_seen) / total_pts * 100) if total_pts > 0 else 0.0
-        
-        # 回傳更豐富的字典結構
+    def _pair_path_keys(self, pair_data, directed=True):
         return {
-            'step_stats': stats,
-            'coverage_percent': coverage_percent,
-            'max_steps': max_steps,
-            'total_seen_count': len(total_seen),
-            'total_pts': total_pts
+            self._path_key(pair_data['e1'], directed=directed),
+            self._path_key(pair_data['e2'], directed=directed),
         }
 
-    # ================= 4. Smooth Path Generation =================
+    def _split_targets(self, total, ratios):
+        ratio_sum = sum(ratios.values())
+        if ratio_sum <= 0:
+            raise ValueError("Split ratios must be positive.")
+        normalized = {name: value / ratio_sum for name, value in ratios.items()}
+        return {name: max(1, int(round(total * normalized[name]))) for name in ratios}
+
+    def extract_path_disjoint_split_pairs(self,
+                                          reward_map,
+                                          min_new_info=15,
+                                          ratios=None,
+                                          directed=True,
+                                          target_total=None,
+                                          candidate_pairs=None):
+        """
+        Select pair cases and assign them to train/validate/test while preventing
+        any directed path from appearing in more than one split.
+
+        Bridge pairs that would connect two already-owned split path pools are
+        skipped. This intentionally trades a few high-score cases for cleaner
+        train/validation/test separation.
+        """
+        if ratios is None:
+            ratios = {'train': 0.70, 'validate': 0.15, 'test': 0.15}
+
+        baseline_pairs = candidate_pairs
+        if baseline_pairs is None:
+            baseline_pairs = self.extract_filtered_pairs(reward_map, min_new_info=min_new_info)
+        if target_total is None:
+            target_total = len(baseline_pairs)
+        targets = self._split_targets(target_total, ratios)
+
+        candidates = list(baseline_pairs)
+        path_freq = {}
+        for pair_data in candidates:
+            for path in self._pair_path_keys(pair_data, directed=directed):
+                path_freq[path] = path_freq.get(path, 0) + 1
+
+        candidates.sort(
+            key=lambda pair_data: (
+                -pair_data.get('score', 0),
+                -max(path_freq[path] for path in self._pair_path_keys(pair_data, directed=directed)),
+            )
+        )
+
+        split_pairs = {name: [] for name in ratios}
+        split_seen = {name: set() for name in ratios}
+        path_owner = {}
+        skipped_bridges = 0
+        skipped_low_info = 0
+
+        for pair_data in candidates:
+            pair_paths = self._pair_path_keys(pair_data, directed=directed)
+            owned_splits = {path_owner[path] for path in pair_paths if path in path_owner}
+            if len(owned_splits) > 1:
+                skipped_bridges += 1
+                continue
+
+            if owned_splits:
+                split_name = next(iter(owned_splits))
+                if len(split_pairs[split_name]) >= targets[split_name]:
+                    continue
+            else:
+                split_name = min(
+                    ratios,
+                    key=lambda name: (
+                        len(split_pairs[name]) / float(targets[name]),
+                        len(split_pairs[name]),
+                    )
+                )
+
+            s1 = self.dir_edge_states[pair_data['e1']][pair_data['best_idx']]
+            s2 = self.dir_edge_states[pair_data['e2']][pair_data['best_idx']]
+            visible_union = s1['V'] | s2['V']
+            new_info = len(visible_union - split_seen[split_name])
+            if new_info <= min_new_info:
+                skipped_low_info += 1
+                continue
+
+            split_pairs[split_name].append(pair_data)
+            split_seen[split_name] |= visible_union
+            for path in pair_paths:
+                path_owner[path] = split_name
+
+            if all(len(split_pairs[name]) >= targets[name] for name in ratios):
+                break
+
+        print(
+            ">> Path-disjoint split selection: "
+            + ", ".join(f"{name}={len(split_pairs[name])}/{targets[name]}" for name in ratios)
+            + f" | skipped bridge={skipped_bridges}, low-info={skipped_low_info}, "
+            + f"direction={'directed' if directed else 'undirected'}"
+        )
+        return split_pairs
+
+    def extract_joint_path_disjoint_split_pairs(self,
+                                                case_groups,
+                                                min_new_info_by_group=None,
+                                                ratios=None,
+                                                directed=True):
+        """
+        Assign multiple case groups, such as shadow and distance, with a shared
+        path owner table. This keeps train/validate/test path-disjoint after
+        groups are merged for training.
+
+        Ratios are soft targets. Cases are assigned greedily with a shared path
+        owner table; bridge cases that would connect two already-separated
+        splits are skipped. This intentionally drops a small number of cases so
+        train/validate/test can all exist without path leakage.
+        """
+        if ratios is None:
+            ratios = {'train': 0.70, 'validate': 0.15, 'test': 0.15}
+        if min_new_info_by_group is None:
+            min_new_info_by_group = {}
+
+        all_candidates = []
+        for group_name, pairs in case_groups.items():
+            for pair_data in pairs:
+                all_candidates.append((len(all_candidates), group_name, pair_data))
+
+        targets = self._split_targets(len(all_candidates), ratios)
+        path_freq = {}
+        for _, _, pair_data in all_candidates:
+            for path in self._pair_path_keys(pair_data, directed=directed):
+                path_freq[path] = path_freq.get(path, 0) + 1
+
+        all_candidates.sort(
+            key=lambda item: (
+                -item[2].get('score', 0),
+                -max(path_freq[path] for path in self._pair_path_keys(item[2], directed=directed)),
+            )
+        )
+
+        split_pairs = {
+            group_name: {split_name: [] for split_name in ratios}
+            for group_name in case_groups
+        }
+        split_counts = {split_name: 0 for split_name in ratios}
+        split_seen = {split_name: set() for split_name in ratios}
+        path_owner = {}
+        added_candidate_ids = set()
+        skipped_bridges = {1: 0, 2: 0}
+        skipped_low_info = 0
+        added_by_pass = {1: 0, 2: 0}
+
+        def choose_split(pair_paths):
+            owned_splits = {path_owner[path] for path in pair_paths if path in path_owner}
+            if len(owned_splits) > 1:
+                return None
+            if owned_splits:
+                return next(iter(owned_splits))
+            return min(
+                ratios,
+                key=lambda name: (
+                    split_counts[name] / float(targets[name]),
+                    split_counts[name],
+                )
+            )
+
+        def add_candidate(candidate_id, group_name, pair_data, split_name):
+            split_pairs[group_name][split_name].append(pair_data)
+            split_counts[split_name] += 1
+            added_candidate_ids.add(candidate_id)
+
+            s1 = self.dir_edge_states[pair_data['e1']][pair_data['best_idx']]
+            s2 = self.dir_edge_states[pair_data['e2']][pair_data['best_idx']]
+            split_seen[split_name] |= (s1['V'] | s2['V'])
+
+            for path in self._pair_path_keys(pair_data, directed=directed):
+                path_owner[path] = split_name
+
+        def split_distance():
+            return (
+                sum(abs(split_counts[name] - targets[name]) for name in ratios),
+                max(split_counts.values()) - min(split_counts.values()),
+            )
+
+        def try_rebalance_new_case(candidate_id, group_name, pair_data):
+            pair_paths = self._pair_path_keys(pair_data, directed=directed)
+            owned_splits = {path_owner[path] for path in pair_paths if path in path_owner}
+            if owned_splits:
+                return None
+
+            before = split_distance()
+            best_split = min(
+                ratios,
+                key=lambda name: (
+                    abs((split_counts[name] + 1) - targets[name]),
+                    split_counts[name],
+                )
+            )
+            split_counts[best_split] += 1
+            after = split_distance()
+            split_counts[best_split] -= 1
+            if after <= before:
+                return best_split
+            return None
+
+        for candidate_id, group_name, pair_data in all_candidates:
+            pair_paths = self._pair_path_keys(pair_data, directed=directed)
+            split_name = choose_split(pair_paths)
+            if split_name is None:
+                skipped_bridges[1] += 1
+                continue
+
+            s1 = self.dir_edge_states[pair_data['e1']][pair_data['best_idx']]
+            s2 = self.dir_edge_states[pair_data['e2']][pair_data['best_idx']]
+            visible_union = s1['V'] | s2['V']
+            min_new_info = min_new_info_by_group.get(group_name, 0)
+            new_info = len(visible_union - split_seen[split_name])
+            if new_info <= min_new_info:
+                skipped_low_info += 1
+                continue
+
+            add_candidate(candidate_id, group_name, pair_data, split_name)
+            added_by_pass[1] += 1
+
+        for candidate_id, group_name, pair_data in all_candidates:
+            if candidate_id in added_candidate_ids:
+                continue
+
+            pair_paths = self._pair_path_keys(pair_data, directed=directed)
+            split_name = choose_split(pair_paths)
+            if split_name is None:
+                skipped_bridges[2] += 1
+                continue
+
+            rebalance_split = try_rebalance_new_case(candidate_id, group_name, pair_data)
+            if rebalance_split is not None:
+                split_name = rebalance_split
+
+            add_candidate(candidate_id, group_name, pair_data, split_name)
+            added_by_pass[2] += 1
+
+        print(
+            ">> Joint path-disjoint split selection: "
+            + ", ".join(f"{name}={split_counts[name]}/{targets[name]}" for name in ratios)
+            + f" | selected={sum(split_counts.values())}/{len(all_candidates)}, "
+            + f"added pass1={added_by_pass[1]}, pass2={added_by_pass[2]}, "
+            + f"skipped bridge pass1={skipped_bridges[1]}, pass2={skipped_bridges[2]}, "
+            + f"low-info pass1={skipped_low_info}, "
+            + f"direction={'directed' if directed else 'undirected'}"
+        )
+        for group_name in case_groups:
+            print(
+                f">>   {group_name}: "
+                + ", ".join(f"{name}={len(split_pairs[group_name][name])}" for name in ratios)
+            )
+        self._verify_joint_path_disjoint_split(split_pairs, directed=directed)
+        return split_pairs
+
+    def _verify_joint_path_disjoint_split(self, split_pairs_by_group, directed=True):
+        path_owner = {}
+        for group_name, split_pairs in split_pairs_by_group.items():
+            for split_name, pairs in split_pairs.items():
+                for pair_data in pairs:
+                    for path in self._pair_path_keys(pair_data, directed=directed):
+                        previous_owner = path_owner.get(path)
+                        if previous_owner is not None and previous_owner != split_name:
+                            raise ValueError(
+                                "Path leakage detected: "
+                                f"path={path}, previous_split={previous_owner}, "
+                                f"current_split={split_name}, group={group_name}"
+                            )
+                        path_owner[path] = split_name
+
+        print(
+            ">> Verified joint split path-disjoint: "
+            f"{len(path_owner)} unique {'directed' if directed else 'undirected'} paths."
+        )
+
+    # ================= 3. Smooth Path Generation =================
 
     def _check_collision_w(self, pts):
         for pt in pts:
@@ -662,6 +623,10 @@ class DualCoveragePlanner:
         print(f">> Saving {len(golden_pairs)} filtered pair cases to {folder_name}/ ...")
         case_dir = os.path.join(self.output_dir, folder_name)
         os.makedirs(case_dir, exist_ok=True)
+
+        for filename in os.listdir(case_dir):
+            if filename.startswith("case_") and filename.endswith(".pkl"):
+                os.remove(os.path.join(case_dir, filename))
         
         for idx, pair_data in enumerate(golden_pairs):
             path1 = [pair_data['e1'][0], pair_data['e1'][1]]
@@ -682,25 +647,57 @@ class DualCoveragePlanner:
                 
         print(f">> Successfully saved {len(golden_pairs)} pair cases to {case_dir}/")
 
-        
-    def save_dual_trajectory(self, path1, path2, filename="dual_trajectory.pkl"):
-        save_path = os.path.join(self.output_dir, filename)
-        
-        r1_waypoints = self._build_smooth_continuous_path(path1)
-        r2_waypoints = self._build_smooth_continuous_path(path2)
-        
-        output_data = {
-            'R1_node_sequence': path1,
-            'R2_node_sequence': path2,
-            'R1_waypoints': r1_waypoints,
-            'R2_waypoints': r2_waypoints,
-        }
-        
-        with open(save_path, 'wb') as f:
-            pickle.dump(output_data, f)
-            
-        print(f">> 軌跡已儲存至: {save_path}")
+    def _flatten_split_pairs(self, split_pairs, split_order=None):
+        if split_order is None:
+            split_order = ['train', 'validate', 'test']
 
+        selected_pairs = []
+        for split_name in split_order:
+            selected_pairs.extend(split_pairs.get(split_name, []))
+        return selected_pairs
+
+    def save_split_manifest(self,
+                            split_pairs,
+                            all_pairs,
+                            folder_name="path_case",
+                            filename=None,
+                            directed=True,
+                            ratios=None):
+        pair_to_index = {
+            frozenset([pair_data['e1'], pair_data['e2']]): idx
+            for idx, pair_data in enumerate(all_pairs)
+        }
+        manifest = {
+            'meta': {
+                'folder': folder_name,
+                'path_direction': 'directed' if directed else 'undirected',
+                'ratios': ratios or {'train': 0.70, 'validate': 0.15, 'test': 0.15},
+                'split_unit': 'path_identity',
+            },
+            'counts': {},
+            'train': [],
+            'validate': [],
+            'test': [],
+        }
+
+        for split_name, pairs in split_pairs.items():
+            case_names = []
+            for pair_data in pairs:
+                pair_key = frozenset([pair_data['e1'], pair_data['e2']])
+                if pair_key not in pair_to_index:
+                    continue
+                case_names.append(f"case_{pair_to_index[pair_key]}.pkl")
+            manifest[split_name] = case_names
+            manifest['counts'][split_name] = len(case_names)
+
+        if filename is None:
+            filename = f"{folder_name}_split.json"
+        save_path = os.path.join(self.output_dir, filename)
+        with open(save_path, 'w', encoding='utf-8') as f:
+            json.dump(manifest, f, indent=2)
+        print(f">> Split manifest saved to: {save_path}")
+
+        
     def _draw_edge_with_arrow(self, ax, e, color, label=None):
         u, v = e
         p_u = np.array(self.G.nodes[u]['pos'])
@@ -769,6 +766,10 @@ class DualCoveragePlanner:
 
     def visualize_debug_shadow_pairs(self, golden_pairs):
         print(f">> Plotting {len(golden_pairs)} debug snapshots to: {self.debug_dir}/")
+        for filename in os.listdir(self.debug_dir):
+            if filename.startswith("pair_") and filename.endswith(".png"):
+                os.remove(os.path.join(self.debug_dir, filename))
+
         ext = [self.org[0], self.org[0] + self.w * self.res, self.org[1], self.org[1] + self.h * self.res]
         all_idx = set(range(len(self.boundary_pts)))
         
@@ -811,119 +812,15 @@ class DualCoveragePlanner:
             plt.savefig(os.path.join(self.debug_dir, f"pair_{i}.png"), bbox_inches='tight')
             plt.close(fig)
 
-    def visualize_dual_trajectory(self, path1, path2, filename="dual_optimized_trajectory.png"):
-        print(">> Generating continuous Dual Trajectory visualization...")
-        fig, ax = plt.subplots(figsize=(16, 16), dpi=200)
-        ext = [self.org[0], self.org[0] + self.w * self.res, self.org[1], self.org[1] + self.h * self.res]
-        ax.imshow(self.flipped_img, cmap='gray', origin='lower', extent=ext, alpha=0.3)
-
-        for u, v, data in self.G.edges(data=True):
-            seg = np.array(data.get('smooth_path', [self.G.nodes[u]['pos'], self.G.nodes[v]['pos']]))
-            ax.plot(seg[:, 0], seg[:, 1], color='gray', linestyle='--', linewidth=0.8, alpha=0.4)
-
-        def plot_robot_path(path_seq, cmap_name, is_dashed, label_prefix):
-            if len(path_seq) < 2: return
-            cmap = plt.get_cmap(cmap_name)
-            num_edges = len(path_seq) - 1
-
-            for i in range(num_edges):
-                u, v = path_seq[i], path_seq[i+1]
-                
-                seg = np.array(self.G[u][v].get('smooth_path', [self.G.nodes[u]['pos'], self.G.nodes[v]['pos']]))
-                
-                if np.linalg.norm(seg[0] - self.G.nodes[u]['pos']) > 0.5:
-                    seg = seg[::-1]
-
-                edge_color = cmap(i / max(1, num_edges))
-
-                if is_dashed:
-                    ax.plot(seg[:, 0], seg[:, 1], color=edge_color, 
-                            linewidth=1.0, linestyle='--', zorder=4, alpha=1.0)
-                else:
-                    ax.plot(seg[:, 0], seg[:, 1], color=edge_color, 
-                            linewidth=3.0, linestyle='-', zorder=3, alpha=0.3)
-
-            for i in range(len(path_seq) - 1):
-                u, v = path_seq[i], path_seq[i+1]
-                seg = np.array(self.G[u][v].get('smooth_path', [self.G.nodes[u]['pos'], self.G.nodes[v]['pos']]))
-                if np.linalg.norm(seg[0] - self.G.nodes[u]['pos']) > 0.5: seg = seg[::-1]
-                if len(seg) >= 2:
-                    mid = len(seg) // 2
-                    i1, i2 = max(0, mid - 3), min(len(seg) - 1, mid + 3)
-                    dx, dy = seg[i2, 0] - seg[i1, 0], seg[i2, 1] - seg[i1, 1]
-                    if np.hypot(dx, dy) > 1e-3:
-                        color = cmap(i / max(1, len(path_seq) - 2))
-                        ax.annotate('', xy=(seg[mid,0]+dx*0.1, seg[mid,1]+dy*0.1), 
-                                    xytext=(seg[mid,0]-dx*0.1, seg[mid,1]-dy*0.1),
-                                    arrowprops=dict(arrowstyle="->", color=color, lw=2.0), zorder=4)
-
-        plot_robot_path(path1, 'viridis', is_dashed=False, label_prefix='R1')
-        plot_robot_path(path2, 'viridis', is_dashed=True, label_prefix='R2')
-
-        ax.set_title("Dual Robot Continuous Coverage Trajectory\nR1 (Solid) | R2 (Dashed)", fontsize=18, fontweight='bold')
-        ax.legend(loc='upper right', fontsize=12)
-        ax.set_xlim(ext[0], ext[1])
-        ax.set_ylim(ext[2], ext[3])
-        
-        save_path = os.path.join(self.output_dir, filename)
-        plt.savefig(save_path, bbox_inches='tight')
-        plt.close(fig)
-        print(f">> Map saved to: {save_path}")
-
-    def visualize_path_statistics_boxplot(self, full_stats_data, filename="full_path_synergy_boxplot.png"):
-        if not full_stats_data or not full_stats_data['step_stats']:
-            print(">> No statistics generated. Skipping boxplot.")
-            return
-            
-        full_stats = full_stats_data['step_stats']
-        steps = full_stats_data['max_steps']
-        cov_pct = full_stats_data['coverage_percent']
-        seen = full_stats_data['total_seen_count']
-        total = full_stats_data['total_pts']
-            
-        print(f">> Generating performance Boxplot for Full-Path operations...")
-        overlap_data = [s['overlap'] for s in full_stats]
-        comp1_data = [s['comp1'] for s in full_stats]
-        comp2_data = [s['comp2'] for s in full_stats]
-
-        data = [overlap_data, comp1_data, comp2_data]
-        labels = ['Overlap\n(Shared View)', 'Comp 1\n(R1 Helps R2)', 'Comp 2\n(R2 Helps R1)']
-        
-        fig, ax = plt.subplots(figsize=(10, 7), dpi=150)
-        
-        try:
-            bplot = ax.boxplot(data, patch_artist=True, tick_labels=labels,
-                               boxprops=dict(linewidth=1.5), medianprops=dict(color='red', linewidth=2),
-                               whiskerprops=dict(linewidth=1.5), capprops=dict(linewidth=1.5))
-        except TypeError: # 兼容舊版 Matplotlib
-            bplot = ax.boxplot(data, patch_artist=True, labels=labels,
-                               boxprops=dict(linewidth=1.5), medianprops=dict(color='red', linewidth=2),
-                               whiskerprops=dict(linewidth=1.5), capprops=dict(linewidth=1.5))
-
-        colors = ['#2ca02c', '#1f77b4', '#ff7f0e']
-        for patch, color in zip(bplot['boxes'], colors):
-            patch.set_facecolor(color)
-            patch.set_alpha(0.7)
-            
-        # ================= 動態標題排版：顯示步數與覆蓋率 =================
-        title_text = (f"Dual Robot Performance & Synergy Statistics\n"
-                      f"Total Steps (Per Robot): {steps} | Global Coverage: {cov_pct:.2f}% ({seen}/{total})")
-                      
-        ax.set_title(title_text, fontsize=16, fontweight='bold', pad=15)
-        ax.set_ylabel("Number of Boundary Points", fontsize=14)
-        ax.grid(axis='y', linestyle='--', alpha=0.7)
-        
-        save_path = os.path.join(self.output_dir, filename)
-        plt.tight_layout()
-        plt.savefig(save_path, bbox_inches='tight')
-        plt.close(fig)
-        print(f">> Statistics chart saved to: {save_path}")
-
     def visualize_debug_distance_pairs(self, res_comp_pairs, folder_name="debug_distance"):
         """繪製解析度補償的 Debug 圖片，以螢光色突顯一遠一近的補償點"""
         out_dir = os.path.join(self.output_dir, folder_name)
         os.makedirs(out_dir, exist_ok=True)
         print(f">> Plotting {len(res_comp_pairs)} Resolution Comp snapshots to: {out_dir}/")
+        for filename in os.listdir(out_dir):
+            if filename.startswith("pair_") and filename.endswith(".png"):
+                os.remove(os.path.join(out_dir, filename))
+
         ext = [self.org[0], self.org[0] + self.w * self.res, self.org[1], self.org[1] + self.h * self.res]
         all_idx = set(range(len(self.boundary_pts)))
         
@@ -1076,23 +973,42 @@ if __name__ == "__main__":
     
     print("\n--- Task A: Shadow Compensation ---")
     reward_map_shadow = planner.get_all_useful_pairs(min_overlap=15, min_score=30.0)
-    filtered_shadow_pairs = planner.extract_filtered_pairs(reward_map_shadow, min_new_info=15)
-    
-    if filtered_shadow_pairs:
-        planner.visualize_debug_shadow_pairs(filtered_shadow_pairs)
-        planner.save_valuable_pairs(filtered_shadow_pairs, folder_name="path_case_shadow")
+    filtered_shadow_pairs = planner.extract_filtered_pairs(reward_map_shadow, min_new_info=5)
 
     print("\n--- Task B: Resolution Compensation ---")
-    reward_map_res = planner.get_resolution_comp_pairs(min_overlap=15, min_dist_gap=7.5, min_score=10)
-    filtered_res_pairs = planner.extract_filtered_res_comp_pairs(reward_map_res, min_new_gap_pts=10)
-    
-    if filtered_res_pairs:
-        planner.visualize_debug_distance_pairs(filtered_res_pairs, folder_name="debug_distance")
-        planner.save_valuable_pairs(filtered_res_pairs, folder_name="path_case_distance")
+    reward_map_res = planner.get_resolution_comp_pairs(min_overlap=10, min_dist_gap=5.0, min_score=5)
+    filtered_res_pairs = planner.extract_filtered_res_comp_pairs(reward_map_res, min_new_gap_pts=1)
 
-    # 5. 雙機全局路徑最佳化與後續輸出...
-    p1, p2 = planner.plan_dual_trajectory(reward_map_shadow, start_n1="auto", start_n2="auto")
-    full_path_stats = planner.calculate_full_path_statistics(p1, p2)
-    planner.visualize_dual_trajectory(p1, p2, filename="dual_continuous_path.png")
-    planner.visualize_path_statistics_boxplot(full_path_stats, filename="full_path_synergy_stats.png")
-    planner.save_dual_trajectory(p1, p2, filename="dual_trajectory.pkl")
+    joint_split_pairs = planner.extract_joint_path_disjoint_split_pairs(
+        {
+            'shadow': filtered_shadow_pairs,
+            'distance': filtered_res_pairs,
+        },
+        ratios={'train': 0.70, 'validate': 0.15, 'test': 0.15},
+        directed=True
+    )
+
+    selected_shadow_pairs = planner._flatten_split_pairs(joint_split_pairs['shadow'])
+    selected_res_pairs = planner._flatten_split_pairs(joint_split_pairs['distance'])
+
+    if selected_shadow_pairs:
+        planner.visualize_debug_shadow_pairs(selected_shadow_pairs)
+        planner.save_valuable_pairs(selected_shadow_pairs, folder_name="path_case_shadow")
+        planner.save_split_manifest(
+            joint_split_pairs['shadow'],
+            selected_shadow_pairs,
+            folder_name="path_case_shadow",
+            directed=True,
+            ratios={'train': 0.70, 'validate': 0.15, 'test': 0.15}
+        )
+    
+    if selected_res_pairs:
+        planner.visualize_debug_distance_pairs(selected_res_pairs, folder_name="debug_distance")
+        planner.save_valuable_pairs(selected_res_pairs, folder_name="path_case_distance")
+        planner.save_split_manifest(
+            joint_split_pairs['distance'],
+            selected_res_pairs,
+            folder_name="path_case_distance",
+            directed=True,
+            ratios={'train': 0.70, 'validate': 0.15, 'test': 0.15}
+        )

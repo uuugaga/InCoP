@@ -9,6 +9,7 @@ from robot import JackalRobot
 from data_utils import DataProcessor
 from navigator import *
 from isaacsim import SimulationApp
+from time import sleep
 
 def main():
     parser = argparse.ArgumentParser()
@@ -17,7 +18,6 @@ def main():
     parser.add_argument("--usd_path", type=str, required=True, help="Path to the USD scene file")
     args = parser.parse_args()
 
-    # 1. 初始化 Isaac Sim 環境與場景 (只執行一次)
     sim_app = SimulationApp({"headless": True, "enable_motion_bvh": True})
 
     from isaacsim.core.api import SimulationContext
@@ -46,42 +46,36 @@ def main():
     is_batch_mode = False
 
     if os.path.isdir(args.roadmap):
-        # 情況 A：傳入的是資料夾 (Dual batch mode)
         pkl_files = glob.glob(os.path.join(args.roadmap, "case_*.pkl"))
-        # 確保按照 case_0, case_1 順序執行
         pkl_files.sort(key=lambda f: int(re.search(r'case_(\d+)', os.path.basename(f)).group(1)))
         is_batch_mode = True
-        print(f">> 偵測到批次資料夾，共找到 {len(pkl_files)} 個 cases。")
+        print(f">> Found {len(pkl_files)} roadmap files in directory. Batch mode enabled.")
         
     elif os.path.isfile(args.roadmap) and args.roadmap.endswith('.pkl'):
-        # 情況 B：傳入的是單一檔案 (Single/Dual shortest mode)
         pkl_files = [args.roadmap]
         is_batch_mode = False
-        print(f">> 偵測到單一 Roadmap 檔案。")
+        print(f">> Found single roadmap file. Running in single-case mode.")
         
     else:
-        print(">> 錯誤：--roadmap 必須是有效的 .pkl 檔案或包含 case_*.pkl 的資料夾！")
+        print(">> Error: roadmap argument must be a .pkl file or a directory containing case_*.pkl files.")
         sim_app.close()
         return
 
     robots = {}
 
-    # ================= 外層迴圈 =================
     for pkl_file in pkl_files:
         case_name = os.path.splitext(os.path.basename(pkl_file))[0] if is_batch_mode else None
         
         print(f"\n{'='*40}")
-        print(f">> 開始處理: {case_name if case_name else '單一任務'}")
+        print(f">> Starting simulation for case: {case_name if case_name else 'Single Case'}")
         print(f"{'='*40}")
 
         robot_paths, scenario_type = load_roadmap_scenario(pkl_file)
         navigators = {}
         data_roots = {}
 
-        # 用來記錄哪些機器人是這個 Case 剛生成的
-        newly_created_robots = []
 
-        # 1. 宣告與實例化機器人 (但不在此處 Initialize)
+        newly_created_robots = []
         for name, wps in robot_paths.items():
             if not wps or len(wps) < 2:
                 continue
@@ -93,7 +87,7 @@ def main():
             start_yaw_deg = np.degrees(np.arctan2(dy, dx))
 
             if name not in robots:
-                print(f"[{name}] 首次建立並放置於起點...")
+                print(f"[{name}] First time seeing this robot. Creating in simulation...")
                 robot = JackalRobot(
                     name=name, 
                     prim_path=f"/World/{name}", 
@@ -101,28 +95,23 @@ def main():
                     orientation=(0, 0, start_yaw_deg)
                 )
                 robots[name] = robot
-                newly_created_robots.append(name) # 標記為新建立
+                newly_created_robots.append(name) 
 
-            navigators[name] = SequentialTracker(wps, max_v=1.5, max_w=3.0, debug=False)
+            navigators[name] = SequentialTracker(wps, max_v=1.5, max_w=3.0)
             data_roots[name] = DataProcessor.setup_directories(scene_name, args.condition, name, case_name)
 
-        # ==========================================
-        # 🚀 關鍵修正：必須先 play 並 step，才能初始化物理
-        # ==========================================
         sim.play()
         sim.step(render=True) 
-
-        # create a .txt to record carb settings for debugging
 
         import carb.settings
         settings = carb.settings.get_settings()
 
-        # RTX Path Tracing Settings
-        settings.set_string("/rtx/rendermode", "RaytracedLighting")
-        settings.set_float("/rtx/reflections/maxRoughness", 0.8)
-        settings.set_int("/rtx/reflections/maxReflectionBounces", 3)
-        settings.set_int("/rtx/indirectDiffuse/maxBounces", 3)
-        settings.set_int("/rtx/directLighting/sampledLighting/samplesPerPixel", 4)
+        # # RTX Path Tracing Settings
+        # settings.set_string("/rtx/rendermode", "RaytracedLighting")
+        # settings.set_float("/rtx/reflections/maxRoughness", 0.8)
+        # settings.set_int("/rtx/reflections/maxReflectionBounces", 3)
+        # settings.set_int("/rtx/indirectDiffuse/maxBounces", 3)
+        # settings.set_int("/rtx/directLighting/sampledLighting/samplesPerPixel", 4)
 
         # # Path Tracing
         # settings.set_string("/rtx/rendermode", "PathTracing")
@@ -135,10 +124,12 @@ def main():
         # settings.set_bool("/rtx/pathtracing/optixDenoiser/useAlbedo", True)
         # settings.set_bool("/rtx/pathtracing/optixDenoiser/useNormals", True)
 
-        # Tone Mapping
-        settings.set_float("/rtx/post/tonemap/exposureKey", 0.25)
-        settings.set_float("/rtx/post/tonemap/filmIso", 400.0)
-        settings.set_float("/rtx/post/tonemap/fNumber", 1.8)
+        # # If is hospital scene use this setting to brighten the scene
+        # if "hospital" in scene_name.lower():
+        #     # Tone Mapping
+        #     settings.set_float("/rtx/post/tonemap/exposureKey", 0.25)
+        #     settings.set_float("/rtx/post/tonemap/filmIso", 400.0)
+        #     settings.set_float("/rtx/post/tonemap/fNumber", 1.8)
 
 
         # print("\n=== Search RTX Exposure Settings ===")
@@ -158,11 +149,9 @@ def main():
         # print("=========================================\n")
         # exit(0)
         
-        # 2. 初始化「新機器人」的物理視圖
         for name in newly_created_robots:
             robots[name].initialize_physics()
 
-        # 3. 把所有機器人歸位 (Teleport) 並重置速度
         for name, wps in robot_paths.items():
             if not wps or len(wps) < 2:
                 continue
@@ -173,30 +162,26 @@ def main():
             dy = wps[1][1] - wps[0][1]
             start_yaw_deg = np.degrees(np.arctan2(dy, dx))
 
-            # 無論是新舊機器人，都在此處統一重置到正確起點，避免慣性殘留
             robots[name].reset_state(
                 translation=(start_x, start_y, start_z),
                 orientation=(0, 0, start_yaw_deg)
             )
             
-        # 4. 短暫暖機 (讓物理引擎穩定，雷達與相機適應新位置)
         for _ in range(30): 
             sim.step(render=True)
 
-        # 每個 Case 開始前，儲存 Calibration
         for name, robot in robots.items():
-            if name in navigators:  # 確保該 case 有這個機器人
+            if name in navigators:
                 robot.save_calibration(data_roots[name])
 
-        # 4. 內層迴圈：單一 Case 的控制與導航
+
         all_done = False
-        # 用來記錄是否已經印過抵達訊息，避免洗版
+        latest_ready = {}
         robot_reached_flags = {name: False for name in robots.keys()}
         
         while not all_done:
             all_done = True 
             
-            # --- [速度同步邏輯] 計算所有機器人的剩餘步數 ---
             rem_steps = {name: max(0, nav.path_length - nav.current_node_idx) for name, nav in navigators.items()}
             max_rem = max(rem_steps.values()) if rem_steps else 1
             
@@ -212,41 +197,52 @@ def main():
                 r = R.from_quat(curr_quat)
                 curr_yaw = r.as_euler('zyx')[0]
 
-                # 取得原本 Navigator 算出的預設速度
                 v, w, reached = nav.compute_command(curr_pos, curr_yaw)
                 
                 if not reached:
                     all_done = False
                     
-                    # --- [速度同步邏輯] 依照剩餘進度比例降速 ---
                     if max_rem > 0:
-                        # 計算比例 (最遠的車 scale 為 1.0，越靠近終點的車 scale 越小)
-                        # 最低保底 0.3 倍速，避免完全停滯
                         speed_scale = max(0.3, rem_steps[name] / max_rem)
                         v *= speed_scale
                         
                 else:
-                    # 如果已經抵達，強制停車
                     v, w = 0.0, 0.0
-                    
-                    # 確保只印出一次抵達訊息 (英文 CLI Info)
                     if not robot_reached_flags[name]:
                         print(f"[INFO] {name} has reached the destination! Waiting for others and continuing to record data...")
                         robot_reached_flags[name] = True
 
-                # 驅動機器人 (走動或煞車)
                 robot.drive(v, w)
-                
-                # 🚀 關鍵修改：不論到了沒，只要整個 case 還沒結束 (all_done 還沒 trigger)，就持續記錄資料
-                robot.record_data(data_roots[name])
 
-            # 推動物理時間步長
+                ready, prepared_data, drop_reason = robot.prepare_record_data()
+                if ready:
+                    sample_time, sample_timestamp = robot._timestamp_str_from_timeline()
+                    latest_ready[name] = {
+                        "data": prepared_data,
+                        "sim_time": sample_time,
+                        "timestamp_str": sample_timestamp,
+                    }
+
+            sync_names = [name for name in navigators.keys() if name in latest_ready]
+            if sync_names and all(name in latest_ready for name in navigators.keys()):
+                reference_name = "Jackal_R1" if "Jackal_R1" in latest_ready else sorted(latest_ready)[0]
+                reference_item = latest_ready[reference_name]
+                for name in navigators.keys():
+                    robots[name].save_prepared_data(
+                        data_roots[name],
+                        latest_ready[name]["data"],
+                        timestamp_str=reference_item["timestamp_str"],
+                        sim_time=reference_item["sim_time"],
+                    )
+                latest_ready.clear()
+
             sim.step(render=True)
+            sleep(0.05) # Sleep for lidar data sync, or you will get empty lidar point clouds due to the current data retrieval implementation. This can be removed after we implement a better data retrieval method.
         
-        print(f">> {case_name} 任務完成！\n")
+        print(f">> {case_name} Traversal Completed! Saving data and moving to next case...")
 
     sim_app.close()
-    print(">> 所有模擬 Case 執行完畢。")
+    print(">> All simulations completed. Exiting.")
 
 if __name__ == "__main__":
     main()
