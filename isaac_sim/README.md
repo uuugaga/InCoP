@@ -212,14 +212,3 @@ p_bev = T_lidar_sensor_to_bev * p_lidar_sensor
 
 If your downstream code uses a different lateral sign convention, only this
 matrix should change. The camera optical frame should not be redefined.
-
-## Updated scripts
-
-The following files now follow the explicit-frame calibration format:
-
-- `robot.py`
-- `frame_utils.py`
-- `visualize.py`
-- `visualize_partial.py`
-- `3d_filter.py`
-- `debug_projection.py`

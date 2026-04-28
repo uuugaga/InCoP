@@ -3,13 +3,50 @@ import numpy as np
 import os
 import glob
 import re
+import shutil
 from scipy.spatial.transform import Rotation as R
 
+import config
 from robot import JackalRobot
 from data_utils import DataProcessor
 from navigator import *
 from isaacsim import SimulationApp
 from time import sleep
+
+
+def copy_split_jsons_to_dataset(scene_name, roadmap_path):
+    split_names = ("path_case_distance_split.json", "path_case_shadow_split.json")
+    search_dir = roadmap_path if os.path.isdir(roadmap_path) else os.path.dirname(roadmap_path)
+    search_dir = os.path.abspath(search_dir)
+    dual_dir = None
+
+    while True:
+        if all(os.path.isfile(os.path.join(search_dir, split_name)) for split_name in split_names):
+            dual_dir = search_dir
+            break
+
+        parent_dir = os.path.dirname(search_dir)
+        if parent_dir == search_dir:
+            break
+        search_dir = parent_dir
+
+    if dual_dir is None:
+        raise FileNotFoundError(
+            "Required split json files not found near roadmap path: "
+            f"{roadmap_path}. Expected files: {', '.join(split_names)}"
+        )
+
+    dataset_scene_dir = os.path.join(config.BASE_SAVE_PATH, scene_name)
+    os.makedirs(dataset_scene_dir, exist_ok=True)
+
+    for split_name in split_names:
+        src = os.path.join(dual_dir, split_name)
+        if not os.path.isfile(src):
+            raise FileNotFoundError(f"Required split json not found: {src}")
+
+        dst = os.path.join(dataset_scene_dir, split_name)
+        shutil.copy2(src, dst)
+        print(f">> Copied split json to dataset scene folder: {dst}")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -17,6 +54,30 @@ def main():
     parser.add_argument("--roadmap", type=str, required=True, help="Path to a .pkl file OR a directory of case_*.pkl files")
     parser.add_argument("--usd_path", type=str, required=True, help="Path to the USD scene file")
     args = parser.parse_args()
+
+    scene_name = os.path.splitext(os.path.basename(args.usd_path))[0]
+
+    pkl_files = []
+    is_batch_mode = False
+
+    if os.path.isdir(args.roadmap):
+        pkl_files = glob.glob(os.path.join(args.roadmap, "case_*.pkl"))
+        pkl_files.sort(key=lambda f: int(re.search(r'case_(\d+)', os.path.basename(f)).group(1)))
+        is_batch_mode = True
+        print(f">> Found {len(pkl_files)} roadmap files in directory. Batch mode enabled.")
+        if not pkl_files:
+            raise FileNotFoundError(f"No case_*.pkl files found in roadmap directory: {args.roadmap}")
+        
+    elif os.path.isfile(args.roadmap) and args.roadmap.endswith('.pkl'):
+        pkl_files = [args.roadmap]
+        is_batch_mode = False
+        print(f">> Found single roadmap file. Running in single-case mode.")
+        
+    else:
+        print(">> Error: roadmap argument must be a .pkl file or a directory containing case_*.pkl files.")
+        return
+
+    copy_split_jsons_to_dataset(scene_name, args.roadmap)
 
     sim_app = SimulationApp({"headless": True, "enable_motion_bvh": True})
 
@@ -32,34 +93,11 @@ def main():
         stage_units_in_meters=1.0
     )
 
-    scene_name = os.path.splitext(os.path.basename(args.usd_path))[0]
     omni.usd.get_context().open_stage(args.usd_path)
     stage = omni.usd.get_context().get_stage()
     
     if not stage.GetPrimAtPath("/World/PhysicsScene"):
         UsdPhysics.Scene.Define(stage, "/World/PhysicsScene")
-
-    import glob
-    import re
-    
-    pkl_files = []
-    is_batch_mode = False
-
-    if os.path.isdir(args.roadmap):
-        pkl_files = glob.glob(os.path.join(args.roadmap, "case_*.pkl"))
-        pkl_files.sort(key=lambda f: int(re.search(r'case_(\d+)', os.path.basename(f)).group(1)))
-        is_batch_mode = True
-        print(f">> Found {len(pkl_files)} roadmap files in directory. Batch mode enabled.")
-        
-    elif os.path.isfile(args.roadmap) and args.roadmap.endswith('.pkl'):
-        pkl_files = [args.roadmap]
-        is_batch_mode = False
-        print(f">> Found single roadmap file. Running in single-case mode.")
-        
-    else:
-        print(">> Error: roadmap argument must be a .pkl file or a directory containing case_*.pkl files.")
-        sim_app.close()
-        return
 
     robots = {}
 
@@ -106,13 +144,6 @@ def main():
         import carb.settings
         settings = carb.settings.get_settings()
 
-        # # RTX Path Tracing Settings
-        # settings.set_string("/rtx/rendermode", "RaytracedLighting")
-        # settings.set_float("/rtx/reflections/maxRoughness", 0.8)
-        # settings.set_int("/rtx/reflections/maxReflectionBounces", 3)
-        # settings.set_int("/rtx/indirectDiffuse/maxBounces", 3)
-        # settings.set_int("/rtx/directLighting/sampledLighting/samplesPerPixel", 4)
-
         # # Path Tracing
         # settings.set_string("/rtx/rendermode", "PathTracing")
         # settings.set_int("/rtx/pathtracing/spp", 16)
@@ -124,12 +155,16 @@ def main():
         # settings.set_bool("/rtx/pathtracing/optixDenoiser/useAlbedo", True)
         # settings.set_bool("/rtx/pathtracing/optixDenoiser/useNormals", True)
 
-        # # If is hospital scene use this setting to brighten the scene
-        # if "hospital" in scene_name.lower():
-        #     # Tone Mapping
-        #     settings.set_float("/rtx/post/tonemap/exposureKey", 0.25)
-        #     settings.set_float("/rtx/post/tonemap/filmIso", 400.0)
-        #     settings.set_float("/rtx/post/tonemap/fNumber", 1.8)
+        # If is hospital scene use this setting to brighten the scene
+        if "hospital" in scene_name.lower():
+            # Tone Mapping
+            settings.set_float("/rtx/post/tonemap/filmIso", 400.0)
+            settings.set_float("/rtx/post/tonemap/fNumber", 1.8)
+
+        if "office" in scene_name.lower():
+            # Tone Mapping
+            settings.set_float("/rtx/post/tonemap/filmIso", 400.0)
+            settings.set_float("/rtx/post/tonemap/fNumber", 1.8)
 
 
         # print("\n=== Search RTX Exposure Settings ===")
