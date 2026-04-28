@@ -20,7 +20,7 @@ LIDAR_FOV_COMPLETENESS_MIN_RATIO = 0.20
 WHEEL_RADIUS = 0.098
 WHEEL_BASE = 0.375
 
-KEEP_CLASSES = ["box", 
+KEEP_CLASSES = [
                 "wet_floor_sign", 
                 "traffic_cone", 
                 "fire_extinguisher", 
