@@ -3,8 +3,12 @@
 # License: TDG-Attribution-NonCommercial-NoDistrib
 
 
+import copy
+import importlib
+
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 from opencood.models.sub_modules.lss_submodule import Up, CamEncode, BevEncode, CamEncode_Resnet101
 from opencood.utils.camera_utils import gen_dx_bx, cumsum_trick, QuickCumsum, depth_discretization
@@ -16,6 +20,154 @@ from opencood.models.sub_modules.downsample_conv import DownsampleConv
 from opencood.models.sub_modules.mean_vfe import MeanVFE
 from opencood.models.sub_modules.sparse_backbone_3d import VoxelBackBone8x
 from opencood.models.sub_modules.height_compression import HeightCompression
+
+
+class ConvFuser(nn.Sequential):
+    """BEVFusion-style convolution fuser for aligned BEV features.
+
+    The official BEVFusion ConvFuser concatenates sensor BEV features and
+    applies a 3x3 Conv-BN-ReLU block. Keeping it here lets the multimodal
+    fusion live inside the encoder, while OpenCOOD's cooperative fusion and
+    prediction heads stay unchanged.
+    """
+
+    def __init__(self, in_channels, out_channels):
+        if isinstance(in_channels, int):
+            in_channels = [in_channels]
+        self.in_channels = [int(channel) for channel in in_channels]
+        self.out_channels = int(out_channels)
+        super().__init__(
+            nn.Conv2d(
+                sum(self.in_channels),
+                self.out_channels,
+                kernel_size=3,
+                padding=1,
+                bias=False,
+            ),
+            nn.BatchNorm2d(self.out_channels),
+            nn.ReLU(inplace=True),
+        )
+
+    def forward(self, inputs):
+        return super().forward(torch.cat(inputs, dim=1))
+
+
+def _find_encoder_class(core_method):
+    target_model_name = core_method.replace("_", "").lower()
+    for module_name in (
+        "opencood.models.heter_encoders_dsvt",
+        "opencood.models.heter_encoders",
+    ):
+        encoder_lib = importlib.import_module(module_name)
+        for name, cls in encoder_lib.__dict__.items():
+            if name.lower() == target_model_name:
+                return cls
+    raise RuntimeError(f"Unknown BEVFusion branch encoder {core_method}")
+
+
+class BEVFusion(nn.Module):
+    """Local LiDAR-camera BEVFusion encoder for OpenCOOD.
+
+    This mirrors the BEVFusion recipe at the encoder boundary:
+    LiDAR branch -> BEV feature, camera branch -> BEV feature, ConvFuser ->
+    fused BEV feature. The returned tensor follows the existing heterogeneous
+    encoder convention and can feed the original OpenCOOD BEV backbone,
+    cooperative fusion, and detection head.
+    """
+
+    def __init__(self, args):
+        super().__init__()
+        lidar_cfg = copy.deepcopy(args["lidar_encoder"])
+        camera_cfg = copy.deepcopy(args["camera_encoder"])
+        fuser_cfg = copy.deepcopy(args.get("fuser", {}))
+
+        self.lidar_input_key = lidar_cfg.get("input_key", "lidar")
+        self.camera_input_key = camera_cfg.get("input_key", "camera")
+
+        lidar_cls = _find_encoder_class(lidar_cfg["core_method"])
+        camera_cls = _find_encoder_class(camera_cfg["core_method"])
+        self.lidar_encoder = lidar_cls(lidar_cfg["encoder_args"])
+        self.camera_encoder = camera_cls(camera_cfg["encoder_args"])
+
+        self.depth_supervision = bool(
+            camera_cfg["encoder_args"].get("depth_supervision", False)
+        )
+        self.depth_items = None
+
+        in_channels = fuser_cfg.get(
+            "in_channels",
+            [lidar_cfg.get("out_channels"), camera_cfg.get("out_channels")],
+        )
+        if any(channel is None for channel in in_channels):
+            raise ValueError(
+                "BEVFusion fuser needs in_channels, or branch out_channels."
+            )
+        out_channels = fuser_cfg.get("out_channels", in_channels[0])
+        self.fuser = ConvFuser(in_channels, out_channels)
+
+        if lidar_cfg.get("freeze", False):
+            self._freeze_module(self.lidar_encoder)
+        if camera_cfg.get("freeze", False):
+            self._freeze_module(self.camera_encoder)
+        if fuser_cfg.get("freeze", False):
+            self._freeze_module(self.fuser)
+
+    @staticmethod
+    def _freeze_module(module):
+        module.eval()
+        for param in module.parameters():
+            param.requires_grad_(False)
+
+    @staticmethod
+    def _match_hw(feature, target_hw):
+        target_h, target_w = target_hw
+        _, _, height, width = feature.shape
+
+        if height > target_h:
+            top = (height - target_h) // 2
+            feature = feature[:, :, top:top + target_h, :]
+            height = target_h
+        if width > target_w:
+            left = (width - target_w) // 2
+            feature = feature[:, :, :, left:left + target_w]
+            width = target_w
+
+        pad_h = max(target_h - height, 0)
+        pad_w = max(target_w - width, 0)
+        if pad_h > 0 or pad_w > 0:
+            pad_top = pad_h // 2
+            pad_bottom = pad_h - pad_top
+            pad_left = pad_w // 2
+            pad_right = pad_w - pad_left
+            feature = F.pad(feature, (pad_left, pad_right, pad_top, pad_bottom))
+        return feature
+
+    def _branch_data_dict(self, data_dict, modality_name, branch_key):
+        inputs = data_dict[f"inputs_{modality_name}"]
+        if branch_key not in inputs:
+            raise KeyError(
+                f"BEVFusion expected inputs_{modality_name}['{branch_key}']."
+            )
+        branch_data = dict(data_dict)
+        branch_data[f"inputs_{modality_name}"] = inputs[branch_key]
+        return branch_data
+
+    def forward(self, data_dict, modality_name):
+        lidar_data = self._branch_data_dict(
+            data_dict, modality_name, self.lidar_input_key
+        )
+        camera_data = self._branch_data_dict(
+            data_dict, modality_name, self.camera_input_key
+        )
+
+        lidar_feature = self.lidar_encoder(lidar_data, modality_name)
+        camera_feature = self.camera_encoder(camera_data, modality_name)
+
+        if self.depth_supervision and hasattr(self.camera_encoder, "depth_items"):
+            self.depth_items = self.camera_encoder.depth_items
+
+        camera_feature = self._match_hw(camera_feature, lidar_feature.shape[-2:])
+        return self.fuser([lidar_feature, camera_feature])
 
 
 

@@ -10,6 +10,22 @@ from opencood.tools.inference_utils import get_cav_box
 import opencood.visualization.simple_plot3d.canvas_3d as canvas_3d
 import opencood.visualization.simple_plot3d.canvas_bev as canvas_bev
 
+MAX_VIS_PRED_BOXES = 256
+
+
+def _limit_pred_boxes_for_vis(pred_box_np, pred_name, score_np=None):
+        """Keep visualization responsive when a model emits many low-score boxes."""
+        if pred_box_np.shape[0] <= MAX_VIS_PRED_BOXES:
+            return pred_box_np, pred_name
+
+        if score_np is not None and score_np.shape[0] == pred_box_np.shape[0]:
+            keep_idx = np.argsort(score_np)[-MAX_VIS_PRED_BOXES:][::-1]
+        else:
+            keep_idx = np.arange(MAX_VIS_PRED_BOXES)
+
+        return pred_box_np[keep_idx], [pred_name[i] for i in keep_idx]
+
+
 def visualize(infer_result, pcd, pc_range, save_path, method='3d', left_hand=False):
         """
         Visualize the prediction, ground truth with point cloud together.
@@ -56,6 +72,7 @@ def visualize(infer_result, pcd, pc_range, save_path, method='3d', left_hand=Fal
         if pred_box_tensor is not None:
             pred_box_np = pred_box_tensor.cpu().numpy()
             pred_name = ['pred'] * pred_box_np.shape[0]
+            score_np = None
 
             score = infer_result.get("score_tensor", None)
             if score is not None:
@@ -89,6 +106,10 @@ def visualize(infer_result, pcd, pc_range, save_path, method='3d', left_hand=Fal
 
                     pred_name = [f'x_u:{uncertainty_np[i,0]:.3f} y_u:{uncertainty_np[i,1]:3f} a_u:{uncertainty_np[i,6]:3f}' \
                                     for i in range(uncertainty_np.shape[0])]                    
+
+            pred_box_np, pred_name = _limit_pred_boxes_for_vis(
+                pred_box_np, pred_name, score_np
+            )
 
         if gt_box_tensor is not None:
             gt_box_np = gt_box_tensor.cpu().numpy()
@@ -167,5 +188,4 @@ def visualize(infer_result, pcd, pc_range, save_path, method='3d', left_hand=Fal
         plt.savefig(save_path, transparent=False, dpi=500)
         plt.clf()
         plt.close()
-
 

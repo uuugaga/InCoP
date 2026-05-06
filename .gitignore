@@ -135,3 +135,13 @@ logs/
 .idea
 
 isaac_sim/map/planning/trajectory/*
+
+task_prompt.md
+
+run_logs/
+run_pids/
+
+paper_results/
+run_pids/
+
+NYCU_small_dataset/

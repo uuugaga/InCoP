@@ -18,6 +18,7 @@ from opencood.data_utils.post_processor.base_postprocessor \
     import BasePostprocessor
 from opencood.utils import box_utils
 from opencood.utils.box_overlaps import bbox_overlaps
+from opencood.utils.center_head_utils import decode_center_boxes_for_output
 from opencood.visualization import vis_utils
 from opencood.utils.common_utils import limit_period
 
@@ -296,25 +297,39 @@ class VoxelPostprocessor(BasePostprocessor):
             prob = F.sigmoid(prob.permute(0, 2, 3, 1))
             prob = prob.reshape(1, -1)
 
-            # regression map
-            reg = output_dict[cav_id]['reg_preds']
-
-            # convert regression map back to bounding box
-            if len(reg.shape) == 4: # anchor-based. PointPillars, SECOND
-                batch_box3d = self.delta_to_boxes3d(reg, anchor_box)
-            else: # anchor-free. CenterPoint
-                batch_box3d = reg.view(1, -1, 7)
-
-            mask = \
-                torch.gt(prob, self.params['target_args']['score_threshold'])
+            mask = torch.gt(
+                prob, self.params['target_args']['score_threshold'])
             mask = mask.view(1, -1)
-            mask_reg = mask.unsqueeze(2).repeat(1, 1, 7)
 
-            # during validation/testing, the batch size should be 1
-            assert batch_box3d.shape[0] == 1
-            boxes3d = torch.masked_select(batch_box3d[0],
-                                          mask_reg[0]).view(-1, 7)
-            scores = torch.masked_select(prob[0], mask[0])
+            if 'center_head_preds' in output_dict[cav_id]:
+                pred_dict = output_dict[cav_id]['center_head_preds']
+                num_classes = pred_dict['hm'].shape[1]
+                flat_inds = torch.nonzero(mask[0], as_tuple=False).view(-1)
+                cell_inds = torch.div(
+                    flat_inds, num_classes, rounding_mode='floor')
+                boxes3d = decode_center_boxes_for_output(
+                    output_dict[cav_id],
+                    cell_inds,
+                    fallback_params=self.params,
+                )
+                scores = prob[0].index_select(0, flat_inds)
+            else:
+                # regression map
+                reg = output_dict[cav_id]['reg_preds']
+
+                # convert regression map back to bounding box
+                if len(reg.shape) == 4: # anchor-based. PointPillars, SECOND
+                    batch_box3d = self.delta_to_boxes3d(reg, anchor_box)
+                else: # anchor-free. CenterPoint
+                    batch_box3d = reg.view(1, -1, 7)
+
+                mask_reg = mask.unsqueeze(2).repeat(1, 1, 7)
+
+                # during validation/testing, the batch size should be 1
+                assert batch_box3d.shape[0] == 1
+                boxes3d = torch.masked_select(batch_box3d[0],
+                                              mask_reg[0]).view(-1, 7)
+                scores = torch.masked_select(prob[0], mask[0])
 
             # adding dir classifier
             if 'dir_preds' in output_dict[cav_id].keys() and len(boxes3d) !=0:

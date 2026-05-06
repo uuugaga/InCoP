@@ -885,7 +885,7 @@ def remove_bbx_abnormal_z(bbx_3d):
     """
     bbx_z_min = torch.min(bbx_3d[:, :, 2], dim=1)[0]
     bbx_z_max = torch.max(bbx_3d[:, :, 2], dim=1)[0]
-    index = torch.logical_and(bbx_z_min >= -3, bbx_z_max <= 1)
+    index = torch.logical_and(bbx_z_min >= -3, bbx_z_max <= 3)
 
     return index
 
