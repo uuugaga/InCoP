@@ -1,4 +1,4 @@
-name: HEAL_opv2v_m2_LSSeff48_pretrain
+name: HEAL_opv2v_m2_LSSeff48_center_head
 root_dir: "dataset/OPV2V/train"
 validate_dir: "dataset/OPV2V/validate"
 test_dir: "dataset/OPV2V/test"
@@ -70,6 +70,8 @@ preprocess:
 postprocess:
   core_method: 'VoxelPostprocessor' # VoxelPostprocessor, BevPostprocessor supported
   gt_range: *cav_lidar
+  class_names: &opv2v_class_names
+    - vehicle
   anchor_args:
     cav_lidar_range: *cav_lidar
     l: 3.9
@@ -96,6 +98,9 @@ model:
   args:
     ego_modality: *ego_modality
     lidar_range: *cav_lidar
+    head_type: center_head
+    min_size: 0.05
+    max_size: 8.0
 
     m2:
       core_method: *core_method_m2
@@ -140,40 +145,49 @@ model:
 
       head_args:
         in_head: 256
+        center_head:
+          class_names: *opv2v_class_names
+          num_classes: &opv2v_num_classes 1
+          shared_conv_channels: 128
+          fuse_final_conv: true
+          use_bias_before_norm: true
+          num_hm_conv: 1
+          init_bias: -2.19
+          separate_head:
+            num_conv: 1
+            head_conv_channels: 128
+            head_dict:
+              center: {out_channels: 2, num_conv: 1}
+              center_z: {out_channels: 1, num_conv: 1}
+              dim: {out_channels: 3, num_conv: 1}
+              rot: {out_channels: 2, num_conv: 1}
 
     anchor_number: *anchor_num
     dir_args: *dir_args
 
 loss:
-  core_method: point_pillar_depth_loss
+  core_method: center_head_depth_loss
   args:
-    pos_cls_weight: 2.0
-    cls:
-      type: 'SigmoidFocalLoss'
-      alpha: 0.25
-      gamma: 2.0
-      weight: 1.0
-    reg:
-      type: 'WeightedSmoothL1Loss'
-      sigma: 3.0
-      codewise: true
-      weight: 2.0
-    dir:
-      type: 'WeightedSoftmaxClassificationLoss'
-      weight: 0.2
-      args: *dir_args
+    lidar_range: *cav_lidar
+    class_names: *opv2v_class_names
+    num_classes: *opv2v_num_classes
+    num_max_objs: 100
+    gaussian_overlap: 0.1
+    min_radius: 2
+    cls_weight: 1.0
+    loc_weight: 2.0
+    code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     depth:
       weight: 1.0
 
 optimizer:
-  core_method: Adam
-  lr: 0.002
+  core_method: AdamW
+  lr: 0.001
   args:
-    eps: 1e-10
-    weight_decay: 1e-4
+    eps: 1e-8
+    weight_decay: 0.01
 
 lr_scheduler:
   core_method: multistep #step, multistep and Exponential support
   gamma: 0.1
   step_size: [10, 25]
-

@@ -1,23 +1,24 @@
-name: HEAL_isaacsim_m1_pointpillar_pretrain
-root_dir: "dataset/IsaacSimOPV2V/train"
-validate_dir: "dataset/IsaacSimOPV2V/validate"
-test_dir: "dataset/IsaacSimOPV2V/test"
+name: HEAL_opv2v_m6_BEVFusion_anchor_based
+root_dir: "dataset/OPV2V/train"
+validate_dir: "dataset/OPV2V/validate"
+test_dir: "dataset/OPV2V/test"
 
 yaml_parser: "load_general_params"
 train_params:
-  batch_size: &batch_size 16
-  epoches: 25
+  batch_size: &batch_size 2
+  epoches: 50
   eval_freq: 4
   save_freq: 4
   max_cav: 6
 
-comm_range: 50
-input_source: ['lidar']
+comm_range: 120
+input_source: ['lidar', 'camera', 'depth']
 label_type: 'lidar'
-cav_lidar_range: &cav_lidar [0, -22.4, -3, 22.4, 22.4, 1]
+cav_lidar_range: &cav_lidar [-96, -48, -3, 96, 48, 1]
+add_data_extension: ['bev_visibility.png']
 
 heter:
-  assignment_path: "dataset/IsaacSimOPV2V/heter_modality_assign.json"
+  assignment_path: "opencood/logs/heter_modality_assign/opv2v_4modality.json"
   ego_modality: &ego_modality "m1"
   mapping_dict:
     m1: m1
@@ -26,8 +27,8 @@ heter:
     m4: m1
   modality_setting:
     m1:
-      sensor_type: &sensor_type_m1 'lidar'
-      core_method: &core_method_m1 "point_pillar"
+      sensor_type: &sensor_type_m1 'multimodal'
+      core_method: &core_method_m1 "bevfusion"
       preprocess:
         core_method: 'SpVoxelPreprocessor'
         args:
@@ -36,14 +37,30 @@ heter:
           max_voxel_train: 32000
           max_voxel_test: 70000
         cav_lidar_range: *cav_lidar
+      grid_conf: &grid_conf_m1
+        xbound: [-96, 96, 0.4]
+        ybound: [-48, 48, 0.4]
+        zbound: [-10, 10, 20.0]
+        ddiscr: [2, 70, 48]
+        mode: 'LID'
+      data_aug_conf: &data_aug_conf_m1
+        resize_lim: [0.65, 0.7]
+        final_dim: [384, 512]
+        rot_lim: [-3.6, 3.6]
+        H: 600
+        W: 800
+        rand_flip: False
+        bot_pct_lim: [0.0, 0.05]
+        cams: ['camera0', 'camera1', 'camera2', 'camera3']
+        Ncams: 4
 
 fusion:
   core_method: 'lateheter'
-  dataset: 'isaacsim'
+  dataset: 'opv2v'
   args:
     proj_first: false
-    grid_conf: None
-    data_aug_conf: None
+    grid_conf: *grid_conf_m1
+    data_aug_conf: *data_aug_conf_m1
 
 data_augment:
   - NAME: random_world_flip
@@ -67,9 +84,9 @@ postprocess:
   gt_range: *cav_lidar
   anchor_args:
     cav_lidar_range: *cav_lidar
-    l: 1.0
-    w: 1.0
-    h: 1.0
+    l: 3.9
+    w: 1.6
+    h: 1.56
     r: &anchor_yaw [0, 90]
     feature_stride: 2
     num: &anchor_num 2
@@ -90,39 +107,67 @@ model:
   args:
     ego_modality: *ego_modality
     lidar_range: *cav_lidar
+    head_type: anchor_based
+
     m1:
       core_method: *core_method_m1
       sensor_type: *sensor_type_m1
       encoder_args:
-        voxel_size: *voxel_size
-        lidar_range: *cav_lidar
-        pillar_vfe:
-          use_norm: true
-          with_distance: false
-          use_absolute_xyz: true
-          num_filters: [64]
-        point_pillar_scatter:
-          num_features: 64
+        depth_supervision: true
+        lidar_encoder:
+          core_method: point_pillar
+          out_channels: 64
+          encoder_args:
+            voxel_size: *voxel_size
+            lidar_range: *cav_lidar
+            pillar_vfe:
+              use_norm: true
+              with_distance: false
+              use_absolute_xyz: true
+              num_filters: [64]
+            point_pillar_scatter:
+              num_features: 64
+        camera_encoder:
+          core_method: lift_splat_shoot
+          out_channels: 64
+          encoder_args:
+            anchor_number: *anchor_num
+            grid_conf: *grid_conf_m1
+            data_aug_conf: *data_aug_conf_m1
+            img_downsample: 8
+            img_features: &img_feature 64
+            use_depth_gt: false
+            depth_supervision: true
+            camera_encoder: EfficientNet
+        fuser:
+          in_channels: [64, 64]
+          out_channels: 64
+
       backbone_args:
         layer_nums: [3]
         layer_strides: [2]
         num_filters: [64]
+
       aligner_args:
         core_method: identity
+
       layers_args:
         layer_nums: [3, 5, 8]
         layer_strides: [2, 2, 2]
         num_filters: [64, 128, 256]
         upsample_strides: [1, 2, 4]
         num_upsample_filter: [128, 128, 128]
+
       shrink_header:
         kernal_size: [3]
         stride: [1]
         padding: [1]
         dim: [256]
         input_dim: 384
+
       head_args:
         in_head: 256
+
     anchor_number: *anchor_num
     dir_args: *dir_args
 

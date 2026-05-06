@@ -1,0 +1,192 @@
+name: HEAL_isaacsim_full_m5_DSVT_center_head
+root_dir: "dataset/IsaacSimOPV2V/train"
+validate_dir: "dataset/IsaacSimOPV2V/validate"
+test_dir: "dataset/IsaacSimOPV2V/test"
+
+yaml_parser: "load_general_params"
+train_params:
+  batch_size: &batch_size 4
+  epoches: 50
+  eval_freq: 4
+  save_freq: 4
+  max_cav: 2
+
+comm_range: 50
+input_source: ['lidar']
+label_type: 'lidar'
+cav_lidar_range: &cav_lidar [0.0, -11.2, -1, 22.4, 11.2, 3]
+add_data_extension: []
+
+heter:
+  assignment_path: "dataset/IsaacSimOPV2V/heter_modality_assign.json"
+  ego_modality: &ego_modality "m3"
+  mapping_dict:
+    m1: m3
+    m2: m3
+  modality_setting:
+    m3:
+      sensor_type: &sensor_type_m3 'lidar'
+      core_method: &core_method_m3 "dsvt_pillar"
+      preprocess:
+        core_method: 'SpVoxelPreprocessor'
+        args:
+          voxel_size: &voxel_size [0.1, 0.1, 4]
+          max_points_per_voxel: 32
+          max_voxel_train: 60000
+          max_voxel_test: 120000
+        cav_lidar_range: *cav_lidar
+
+fusion:
+  core_method: 'lateheter'
+  dataset: 'isaacsim'
+  args:
+    proj_first: false
+    grid_conf: None
+    data_aug_conf: None
+
+data_augment:
+  - NAME: random_world_flip
+    ALONG_AXIS_LIST: ['x']
+  - NAME: random_world_rotation
+    WORLD_ROT_ANGLE: [-0.39269908, 0.39269908]
+  - NAME: random_world_scaling
+    WORLD_SCALE_RANGE: [0.95, 1.05]
+
+preprocess:
+  core_method: 'SpVoxelPreprocessor'
+  args:
+    voxel_size: [0.1, 0.1, 4]
+    max_points_per_voxel: 1
+    max_voxel_train: 1
+    max_voxel_test: 1
+  cav_lidar_range: *cav_lidar
+
+postprocess:
+  core_method: 'VoxelPostprocessor'
+  gt_range: *cav_lidar
+  class_names: &isaac_class_names
+    - wet_floor_sign
+    - traffic_cone
+    - fire_extinguisher
+    - chair
+    - water_dispenser
+    - medical_bag
+    - trash_can
+    - laptop
+    - monitor
+    - potted_plant
+    - rubiks_cube
+    - table
+    - mug
+  # Dummy anchors are only for OpenCOOD dataset target bookkeeping. The
+  # CenterHead model/loss/postprocess path below is anchor-free.
+  anchor_args:
+    cav_lidar_range: *cav_lidar
+    l: [1.0]
+    w: [1.0]
+    h: [1.0]
+    r: [0]
+    feature_stride: 2
+    num: &anchor_num 1
+  target_args:
+    pos_threshold: 0.35
+    neg_threshold: 0.2
+    score_threshold: 0.25
+  order: 'hwl'
+  max_num: 1024
+  pre_nms_topk: 4096
+  post_nms_topk: 512
+  nms_thresh: 0.15
+
+model:
+  core_method: heter_model_late
+  args:
+    ego_modality: *ego_modality
+    lidar_range: *cav_lidar
+    head_type: center_head
+    min_size: 0.05
+    max_size: 6.0
+    m3:
+      core_method: *core_method_m3
+      sensor_type: *sensor_type_m3
+      encoder_args:
+        voxel_size: *voxel_size
+        lidar_range: *cav_lidar
+        d_model: 192
+        window_shapes: [[12, 12], [24, 24]]
+        shifts: [[0, 0], [6, 6]]
+        set_size: 36
+        num_blocks: 4
+        num_heads: 8
+        feedforward_channels: 384
+        dropout: 0.0
+        chunk_sets: 96
+        pillar_vfe:
+          use_norm: true
+          with_distance: false
+          use_absolute_xyz: true
+          num_filters: [192, 192]
+        point_pillar_scatter:
+          num_features: 192
+      backbone_args:
+        layer_nums: [3]
+        layer_strides: [2]
+        num_filters: [64]
+        inplanes: 192
+      aligner_args:
+        core_method: identity
+      layers_args:
+        layer_nums: [3, 5, 8]
+        layer_strides: [2, 2, 2]
+        num_filters: [64, 128, 256]
+        upsample_strides: [1, 2, 4]
+        num_upsample_filter: [128, 128, 128]
+      shrink_header:
+        kernal_size: [3]
+        stride: [1]
+        padding: [1]
+        dim: [256]
+        input_dim: 384
+      head_args:
+        in_head: 256
+        center_head:
+          class_names: *isaac_class_names
+          num_classes: &isaac_num_classes 13
+          shared_conv_channels: 128
+          fuse_final_conv: true
+          use_bias_before_norm: true
+          num_hm_conv: 1
+          init_bias: -2.19
+          separate_head:
+            num_conv: 1
+            head_conv_channels: 128
+            head_dict:
+              center: {out_channels: 2, num_conv: 1}
+              center_z: {out_channels: 1, num_conv: 1}
+              dim: {out_channels: 3, num_conv: 1}
+              rot: {out_channels: 2, num_conv: 1}
+
+loss:
+  core_method: center_head_loss
+  args:
+    lidar_range: *cav_lidar
+    class_names: *isaac_class_names
+    num_classes: *isaac_num_classes
+    num_max_objs: 1024
+    gaussian_overlap: 0.1
+    min_radius: 2
+    cls_weight: 1.0
+    loc_weight: 2.0
+    code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+optimizer:
+  core_method: AdamW
+  lr: 0.001
+  args:
+    eps: 1e-8
+    weight_decay: 0.01
+
+lr_scheduler:
+  core_method: multistep
+  gamma: 0.1
+  step_size: [10, 25]

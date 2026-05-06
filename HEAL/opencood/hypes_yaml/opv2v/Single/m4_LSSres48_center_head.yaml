@@ -1,4 +1,4 @@
-name: HEAL_opv2v_m2_LSSeff48_pretrain
+name: HEAL_opv2v_m4_LSSres48_center_head
 root_dir: "dataset/OPV2V/train"
 validate_dir: "dataset/OPV2V/validate"
 test_dir: "dataset/OPV2V/test"
@@ -6,7 +6,7 @@ test_dir: "dataset/OPV2V/test"
 yaml_parser: "load_general_params"
 train_params:
   batch_size: &batch_size 4
-  epoches: 25
+  epoches: 40
   eval_freq: 4
   save_freq: 4
   max_cav: 6
@@ -19,26 +19,26 @@ add_data_extension: ['bev_visibility.png']
 
 heter:
   assignment_path: "opencood/logs/heter_modality_assign/opv2v_4modality.json" 
-  ego_modality: &ego_modality "m2"
+  ego_modality: &ego_modality "m4"
   mapping_dict:
-    m1: m2
-    m2: m2
-    m3: m2
-    m4: m2
+    m1: m4
+    m2: m4
+    m3: m4
+    m4: m4
   modality_setting:
-    m2:
-      sensor_type: &sensor_type_m2 'camera'
-      core_method: &core_method_m2 "lift_splat_shoot"
+    m4:
+      sensor_type: &sensor_type_m4 'camera'
+      core_method: &core_method_m4 "lift_splat_shoot"
 
-      grid_conf: &grid_conf_m2
+      grid_conf: &grid_conf_m4
         xbound: [-48, 48, 0.4]   # 限制x方向的范围并划分网格
         ybound: [-48, 48, 0.4]   # 限制y方向的范围并划分网格
         zbound: [-10, 10, 20.0]   # 限制z方向的范围并划分网格
         ddiscr: [2, 50, 48]
         mode: 'LID'
-      data_aug_conf: &data_aug_conf_m2
-        resize_lim: [0.65, 0.7]
-        final_dim: [384, 512]
+      data_aug_conf: &data_aug_conf_m4
+        resize_lim: [0.56, 0.61]
+        final_dim: [336, 448]
         rot_lim: [-3.6, 3.6]
         H: 600
         W: 800
@@ -70,6 +70,8 @@ preprocess:
 postprocess:
   core_method: 'VoxelPostprocessor' # VoxelPostprocessor, BevPostprocessor supported
   gt_range: *cav_lidar
+  class_names: &opv2v_class_names
+    - vehicle
   anchor_args:
     cav_lidar_range: *cav_lidar
     l: 3.9
@@ -96,24 +98,27 @@ model:
   args:
     ego_modality: *ego_modality
     lidar_range: *cav_lidar
+    head_type: center_head
+    min_size: 0.05
+    max_size: 8.0
 
-    m2:
-      core_method: *core_method_m2
-      sensor_type: *sensor_type_m2
+    m4:
+      core_method: *core_method_m4
+      sensor_type: *sensor_type_m4
 
       encoder_args:
         anchor_number: *anchor_num
-        grid_conf: *grid_conf_m2
-        data_aug_conf: *data_aug_conf_m2
+        grid_conf: *grid_conf_m4
+        data_aug_conf: *data_aug_conf_m4
         img_downsample: 8
-        img_features: &img_feature 128
+        img_features: 128
         use_depth_gt: false
         depth_supervision: true
-        camera_encoder: EfficientNet
+        camera_encoder: Resnet101
 
       camera_mask_args:
         cav_lidar_range: *cav_lidar
-        grid_conf: *grid_conf_m2
+        grid_conf: *grid_conf_m4
 
       backbone_args:
         layer_nums: [3]
@@ -140,40 +145,50 @@ model:
 
       head_args:
         in_head: 256
+        center_head:
+          class_names: *opv2v_class_names
+          num_classes: &opv2v_num_classes 1
+          shared_conv_channels: 128
+          fuse_final_conv: true
+          use_bias_before_norm: true
+          num_hm_conv: 1
+          init_bias: -2.19
+          separate_head:
+            num_conv: 1
+            head_conv_channels: 128
+            head_dict:
+              center: {out_channels: 2, num_conv: 1}
+              center_z: {out_channels: 1, num_conv: 1}
+              dim: {out_channels: 3, num_conv: 1}
+              rot: {out_channels: 2, num_conv: 1}
 
     anchor_number: *anchor_num
     dir_args: *dir_args
 
+
 loss:
-  core_method: point_pillar_depth_loss
+  core_method: center_head_depth_loss
   args:
-    pos_cls_weight: 2.0
-    cls:
-      type: 'SigmoidFocalLoss'
-      alpha: 0.25
-      gamma: 2.0
-      weight: 1.0
-    reg:
-      type: 'WeightedSmoothL1Loss'
-      sigma: 3.0
-      codewise: true
-      weight: 2.0
-    dir:
-      type: 'WeightedSoftmaxClassificationLoss'
-      weight: 0.2
-      args: *dir_args
+    lidar_range: *cav_lidar
+    class_names: *opv2v_class_names
+    num_classes: *opv2v_num_classes
+    num_max_objs: 100
+    gaussian_overlap: 0.1
+    min_radius: 2
+    cls_weight: 1.0
+    loc_weight: 2.0
+    code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     depth:
       weight: 1.0
 
 optimizer:
-  core_method: Adam
-  lr: 0.002
+  core_method: AdamW
+  lr: 0.001
   args:
-    eps: 1e-10
-    weight_decay: 1e-4
+    eps: 1e-8
+    weight_decay: 0.01
 
 lr_scheduler:
   core_method: multistep #step, multistep and Exponential support
   gamma: 0.1
   step_size: [10, 25]
-
