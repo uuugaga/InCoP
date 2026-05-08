@@ -1,0 +1,263 @@
+name: HEAL_isaacsim_full_lidar_v2xvit_center_head
+root_dir: dataset/IsaacSimOPV2V/train
+validate_dir: dataset/IsaacSimOPV2V/validate
+test_dir: dataset/IsaacSimOPV2V/test
+yaml_parser: load_general_params
+train_params:
+  batch_size: 2
+  epoches: 50
+  eval_freq: 4
+  save_freq: 4
+  max_cav: 2
+comm_range: 50
+input_source:
+- lidar
+label_type: lidar
+cav_lidar_range: &id001
+- 0.0
+- -11.2
+- -1
+- 22.4
+- 11.2
+- 3
+add_data_extension: []
+fusion:
+  core_method: intermediateheter
+  dataset: isaacsim
+  args:
+    proj_first: false
+    grid_conf: None
+    data_aug_conf: None
+data_augment:
+- NAME: random_world_flip
+  ALONG_AXIS_LIST:
+  - x
+- NAME: random_world_rotation
+  WORLD_ROT_ANGLE:
+  - -0.39269908
+  - 0.39269908
+- NAME: random_world_scaling
+  WORLD_SCALE_RANGE:
+  - 0.95
+  - 1.05
+preprocess:
+  core_method: SpVoxelPreprocessor
+  args:
+    voxel_size: &id002
+    - 0.1
+    - 0.1
+    - 4
+    max_points_per_voxel: 1
+    max_voxel_train: 1
+    max_voxel_test: 1
+  cav_lidar_range: *id001
+heter:
+  assignment_path: dataset/IsaacSimOPV2V/heter_modality_assign.json
+  ego_modality: m1
+  mapping_dict:
+    m1: m1
+    m2: m1
+  modality_setting:
+    m1:
+      sensor_type: lidar
+      core_method: point_pillar
+      preprocess:
+        core_method: SpVoxelPreprocessor
+        args:
+          voxel_size: *id002
+          max_points_per_voxel: 32
+          max_voxel_train: 60000
+          max_voxel_test: 120000
+        cav_lidar_range: *id001
+postprocess:
+  core_method: VoxelPostprocessor
+  gt_range: *id001
+  anchor_args:
+    cav_lidar_range: *id001
+    l:
+    - 1.0
+    w:
+    - 1.0
+    h:
+    - 1.0
+    r:
+    - 0
+    feature_stride: 4
+    num: 1
+  target_args:
+    pos_threshold: 0.35
+    neg_threshold: 0.2
+    score_threshold: 0.25
+  order: hwl
+  max_num: 1024
+  nms_thresh: 0.15
+  class_names: &id003
+  - wet_floor_sign
+  - traffic_cone
+  - fire_extinguisher
+  - chair
+  - water_dispenser
+  - medical_bag
+  - trash_can
+  - laptop
+  - monitor
+  - potted_plant
+  - rubiks_cube
+  - table
+  - mug
+  pre_nms_topk: 4096
+  post_nms_topk: 512
+model:
+  core_method: heter_model_baseline
+  args:
+    ego_modality: m1
+    lidar_range: *id001
+    m1:
+      core_method: point_pillar
+      sensor_type: lidar
+      encoder_args:
+        voxel_size: *id002
+        lidar_range: *id001
+        pillar_vfe:
+          use_norm: true
+          with_distance: false
+          use_absolute_xyz: true
+          num_filters:
+          - 64
+        point_pillar_scatter:
+          num_features: 64
+      backbone_args:
+        layer_nums:
+        - 3
+        - 5
+        - 8
+        layer_strides:
+        - 2
+        - 2
+        - 2
+        num_filters:
+        - 64
+        - 128
+        - 256
+        upsample_strides:
+        - 1
+        - 2
+        - 4
+        num_upsample_filter:
+        - 128
+        - 128
+        - 128
+      shrink_header:
+        kernal_size:
+        - 3
+        stride:
+        - 2
+        padding:
+        - 1
+        dim:
+        - 256
+        input_dim: 384
+    fusion_method: v2xvit
+    in_head: 256
+    anchor_number: 1
+    v2xvit:
+      transformer:
+        encoder:
+          num_blocks: 1
+          depth: 3
+          use_roi_mask: true
+          use_RTE: false
+          RTE_ratio: 0
+          cav_att_config:
+            dim: 256
+            use_hetero: true
+            use_RTE: false
+            RTE_ratio: 0
+            heads: 8
+            dim_head: 32
+            dropout: 0.3
+          pwindow_att_config:
+            dim: 256
+            heads:
+            - 16
+            - 8
+            - 4
+            dim_head:
+            - 16
+            - 32
+            - 64
+            dropout: 0.3
+            window_size:
+            - 4
+            - 8
+            - 14
+            relative_pos_embedding: true
+            fusion_method: split_attn
+          feed_forward:
+            mlp_dim: 256
+            dropout: 0.3
+          sttf:
+            voxel_size:
+            - 0.1
+            - 0.1
+            - 4
+            downsample_rate: 4
+    head_type: center_head
+    min_size: 0.05
+    max_size: 6.0
+    center_head:
+      class_names: *id003
+      num_classes: 13
+      shared_conv_channels: 128
+      fuse_final_conv: true
+      use_bias_before_norm: true
+      num_hm_conv: 1
+      init_bias: -2.19
+      separate_head:
+        num_conv: 1
+        head_conv_channels: 128
+        head_dict:
+          center:
+            out_channels: 2
+            num_conv: 1
+          center_z:
+            out_channels: 1
+            num_conv: 1
+          dim:
+            out_channels: 3
+            num_conv: 1
+          rot:
+            out_channels: 2
+            num_conv: 1
+loss:
+  core_method: center_head_loss
+  args:
+    lidar_range: *id001
+    class_names: *id003
+    num_classes: 13
+    num_max_objs: 1024
+    gaussian_overlap: 0.1
+    min_radius: 2
+    cls_weight: 1.0
+    loc_weight: 2.0
+    code_weights:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+optimizer:
+  core_method: AdamW
+  lr: 0.001
+  args:
+    eps: 1.0e-08
+    weight_decay: 0.01
+lr_scheduler:
+  core_method: multistep
+  gamma: 0.1
+  step_size:
+  - 10
+  - 25
