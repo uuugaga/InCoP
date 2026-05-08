@@ -33,6 +33,7 @@ import os
 import random
 import re
 import shutil
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
@@ -67,6 +68,9 @@ DEFAULT_DETECTION_CLASS = "object"
 DEDUP_CENTER_DISTANCE = 0.35
 DEDUP_DIM_REL_DIFF = 0.35
 DEDUP_YAW_DIFF_DEG = 20.0
+DEFAULT_OBJECT_ID_LOCATION_DECIMALS = 2
+DEFAULT_OBJECT_ID_SIZE_DECIMALS = 2
+DEFAULT_WORKER_FRACTION = 0.5
 SOURCE_SPLIT_FILES = {
     "dual_case_distance": "path_case_distance_split.json",
     "dual_case_shadow": "path_case_shadow_split.json",
@@ -106,6 +110,17 @@ class NoAliasSafeDumper(yaml.SafeDumper):
         return True
 
 
+class QuotedString(str):
+    pass
+
+
+def quoted_string_representer(dumper: yaml.SafeDumper, data: QuotedString):
+    return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="'")
+
+
+NoAliasSafeDumper.add_representer(QuotedString, quoted_string_representer)
+
+
 @dataclass(frozen=True)
 class RobotExport:
     name: str
@@ -139,6 +154,10 @@ def scenario_name_from_path(source: Path, scenario_path: Path) -> str:
 
 def scenario_name_from_source_split(scene_name: str, condition: str, case_file: str) -> str:
     return f"{scene_name}__{condition}__{Path(case_file).stem}"
+
+
+def scene_key_from_scenario_name(scenario_name: str) -> str:
+    return scenario_name.split("__", 1)[0]
 
 
 def load_source_split(path: Path) -> dict:
@@ -317,15 +336,11 @@ def common_timestamps(robots: Sequence[RobotExport]) -> List[str]:
     return sorted(set.intersection(*timestamp_sets), key=natural_key)
 
 
-def copy_or_link(src: Path, dst: Path, copy_files: bool) -> None:
+def copy_file(src: Path, dst: Path) -> None:
     dst.parent.mkdir(parents=True, exist_ok=True)
     if dst.exists() or dst.is_symlink():
         dst.unlink()
-    if copy_files:
-        shutil.copy2(src, dst)
-    else:
-        rel_src = os.path.relpath(src.resolve(), dst.parent.resolve())
-        os.symlink(rel_src, dst)
+    shutil.copy2(src, dst)
 
 
 def read_pcd_header(path: Path) -> Tuple[List[str], int, str, int]:
@@ -380,7 +395,7 @@ def write_xyzrgb_pcd(
 ) -> None:
     fields, _, _, _ = read_pcd_header(src)
     if "rgb" in fields and xyz_rotation is None:
-        copy_or_link(src, dst, copy_files)
+        copy_file(src, dst)
         return
 
     xyz = load_xyz_from_pcd(src)
@@ -411,9 +426,9 @@ def write_xyzrgb_pcd(
 
 def save_rgb_camera_set(src: Path, dst_prefix: Path, copy_files: bool, image_size: Tuple[int, int], camera_count: int) -> None:
     img = Image.open(src).convert("RGB")
-    if img.size == image_size and not copy_files:
+    if img.size == image_size:
         for idx in range(camera_count):
-            copy_or_link(src, dst_prefix.with_name(f"{dst_prefix.name}_camera{idx}.png"), copy_files=False)
+            copy_file(src, dst_prefix.with_name(f"{dst_prefix.name}_camera{idx}.png"))
         return
 
     if img.size != image_size:
@@ -575,6 +590,38 @@ def deduplicate_objects(candidates: List[dict]) -> List[dict]:
     return sorted(kept, key=lambda item: item["source_index"])
 
 
+def format_quantized_tuple(values: Sequence[float], decimals: int) -> str:
+    return ",".join(f"{round(float(value), decimals):.{decimals}f}" for value in values)
+
+
+def global_object_key(
+    scene_key: str,
+    candidate: dict,
+    location_decimals: int,
+    size_decimals: int,
+) -> str:
+    """Create a stable static-object key from layout, location, and size."""
+    location_key = format_quantized_tuple(candidate["location"], location_decimals)
+    size_key = format_quantized_tuple(candidate["dimensions"], size_decimals)
+    return f"scene={scene_key}|location={location_key}|size={size_key}"
+
+
+def object_registry_entry(
+    object_id: str,
+    object_key: str,
+    candidate: dict,
+) -> dict:
+    return {
+        "object_id": object_id,
+        "key": object_key,
+        "scene": object_key.split("|", 1)[0].split("=", 1)[1],
+        "class_name": candidate["class_name"],
+        "raw_class": candidate["raw_class"],
+        "location": candidate["location"],
+        "dimensions": candidate["dimensions"],
+    }
+
+
 def resolve_label_path(robot_path: Path, timestamp: str) -> Path:
     candidates = [
         robot_path / "label" / "detection" / "3d" / f"{timestamp}.txt",
@@ -583,17 +630,16 @@ def resolve_label_path(robot_path: Path, timestamp: str) -> Path:
     return next((path for path in candidates if path.is_file()), candidates[0])
 
 
-def load_objects(
+def load_object_candidates(
     label_path: Path,
     classes: Optional[set],
     min_box_size: float,
-    detection_class: str,
     class_to_id: Dict[str, int],
     asset_to_class: Dict[str, str],
-) -> Dict[str, dict]:
+) -> List[dict]:
     candidates: List[dict] = []
     if not label_path.is_file():
-        return {}
+        return candidates
     with label_path.open("r", encoding="utf-8") as f:
         for idx, line in enumerate(f):
             parts = line.strip().split()
@@ -627,10 +673,90 @@ def load_objects(
                 "yaw_deg": yaw_deg,
                 "volume": l * w * h,
             })
+    return candidates
+
+
+def build_global_object_id_registry(
+    scenarios: Sequence[ScenarioExport],
+    classes: Optional[set],
+    min_box_size: float,
+    class_to_id: Dict[str, int],
+    asset_to_class: Dict[str, str],
+    object_id_location_decimals: int,
+    object_id_size_decimals: int,
+) -> Tuple[Dict[str, str], Dict[str, dict]]:
+    key_to_candidate: Dict[str, dict] = {}
+
+    for scenario in scenarios:
+        scene_key = scene_key_from_scenario_name(scenario.name)
+        for robot in scenario.robots:
+            label_dirs = [
+                robot.path / "label" / "detection" / "3d",
+                robot.path / "label" / "detection_raw" / "3d_raw",
+            ]
+            for label_dir in label_dirs:
+                if not label_dir.is_dir():
+                    continue
+                for label_path in sorted(label_dir.glob("*.txt"), key=lambda p: natural_key(p.name)):
+                    candidates = load_object_candidates(
+                        label_path,
+                        classes,
+                        min_box_size,
+                        class_to_id,
+                        asset_to_class,
+                    )
+                    for candidate in deduplicate_objects(candidates):
+                        object_key = global_object_key(
+                            scene_key,
+                            candidate,
+                            object_id_location_decimals,
+                            object_id_size_decimals,
+                        )
+                        key_to_candidate.setdefault(object_key, candidate)
+
+    object_id_registry: Dict[str, str] = {}
+    object_id_entries: Dict[str, dict] = {}
+    for index, object_key in enumerate(sorted(key_to_candidate)):
+        object_id = f"{index:07d}"
+        candidate = key_to_candidate[object_key]
+        object_id_registry[object_key] = object_id
+        object_id_entries[object_id] = object_registry_entry(object_id, object_key, candidate)
+
+    return object_id_registry, object_id_entries
+
+
+def load_objects(
+    label_path: Path,
+    scene_key: str,
+    classes: Optional[set],
+    min_box_size: float,
+    detection_class: str,
+    class_to_id: Dict[str, int],
+    asset_to_class: Dict[str, str],
+    object_id_location_decimals: int,
+    object_id_size_decimals: int,
+    object_id_registry: Dict[str, str],
+) -> Dict[str, dict]:
+    candidates = load_object_candidates(
+        label_path,
+        classes,
+        min_box_size,
+        class_to_id,
+        asset_to_class,
+    )
 
     vehicles: Dict[str, dict] = {}
     for candidate in deduplicate_objects(candidates):
-        vehicles[f"obj_{candidate['source_index']:06d}"] = {
+        object_key = global_object_key(
+            scene_key,
+            candidate,
+            object_id_location_decimals,
+            object_id_size_decimals,
+        )
+        if object_key not in object_id_registry:
+            raise KeyError(f"Missing global object ID for {object_key} from {label_path}")
+        object_id = object_id_registry[object_key]
+        vehicles[QuotedString(object_id)] = {
             "angle": [0.0, candidate["yaw_deg"], 0.0],
             "center": [0.0, 0.0, 0.0],
             "extent": candidate["extent"],
@@ -709,6 +835,9 @@ def convert_scenario(
     lidar_filter_aug_rotation_samples: int,
     lidar_filter_aug_scales: Sequence[float],
     lidar_filter_aug_flip_x: bool,
+    object_id_location_decimals: int,
+    object_id_size_decimals: int,
+    object_id_registry: Dict[str, str],
 ) -> Tuple[int, Dict[str, str], int]:
     timestamps = common_timestamps(scenario.robots)
     if skip_initial_frames:
@@ -728,6 +857,7 @@ def convert_scenario(
 
     assignment: Dict[str, str] = {}
     cav_ids = {robot.name: str(idx) for idx, robot in enumerate(scenario.robots)}
+    object_id_scene_key = scene_key_from_scenario_name(scenario.name)
 
     for robot in scenario.robots:
         cav_id = cav_ids[robot.name]
@@ -763,11 +893,15 @@ def convert_scenario(
             lidar_pose = tfm_to_opencood_pose(t_world_lidar)
             vehicles = load_objects(
                 resolve_label_path(robot.path, timestamp),
+                object_id_scene_key,
                 classes,
                 min_box_size,
                 detection_class,
                 class_to_id,
                 asset_to_class,
+                object_id_location_decimals,
+                object_id_size_decimals,
+                object_id_registry,
             )
 
             write_xyzrgb_pcd(
@@ -989,6 +1123,19 @@ def normalize_source_root(source: Path) -> Path:
     return source
 
 
+def default_worker_count() -> int:
+    cpu_count = os.cpu_count() or 1
+    return max(1, cpu_count // 2)
+
+
+def convert_scenario_task(scenario: ScenarioExport, convert_kwargs: dict) -> Tuple[str, int, Dict[str, str], int]:
+    nframes, assignment, skipped_lidar_sparse = convert_scenario(
+        scenario,
+        **convert_kwargs,
+    )
+    return scenario.name, nframes, assignment, skipped_lidar_sparse
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=Path("HEAL/dataset/IsaacSimDataset/Dataset"))
@@ -1013,10 +1160,23 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=0, help="Random seed for --shuffle-scenarios.")
     parser.add_argument("--limit-frames", type=int, default=None)
     parser.add_argument("--skip-initial-frames", type=int, default=0)
-    parser.add_argument("--copy-files", action="store_true", help="Copy/resize RGB images instead of symlinking originals.")
+    parser.add_argument("--copy-files", action="store_true", help="Deprecated compatibility flag. Files are always copied or regenerated; symlinks are never created.")
+    parser.add_argument("--workers", type=int, default=None, help="Number of scenario conversion workers. Defaults to half of available CPU cores.")
     parser.add_argument("--classes", default=default_keep_classes_arg(), help="Comma-separated class names to keep from 3D labels, or 'all'. Defaults to all because the current label/detection/3d files are already filtered.")
     parser.add_argument("--object-list", type=Path, default=DEFAULT_OBJECT_LIST, help="JSON class map used to store class_id/class_name metadata for future multi-class training.")
     parser.add_argument("--detection-class", default=DEFAULT_DETECTION_CLASS, help="Single class name used by the current class-agnostic training target.")
+    parser.add_argument(
+        "--object-id-location-decimals",
+        type=int,
+        default=DEFAULT_OBJECT_ID_LOCATION_DECIMALS,
+        help="Decimal places used to quantize world locations when creating global static-object IDs.",
+    )
+    parser.add_argument(
+        "--object-id-size-decimals",
+        type=int,
+        default=DEFAULT_OBJECT_ID_SIZE_DECIMALS,
+        help="Decimal places used to quantize 3D box sizes when creating global static-object IDs.",
+    )
     parser.add_argument("--image-size", default="1280x800", help="Output camera/depth PNG size as WIDTHxHEIGHT.")
     parser.add_argument("--min-box-size", type=float, default=0.05, help="Drop boxes with any dimension smaller than this many meters.")
     parser.add_argument("--camera-count", type=int, default=DEFAULT_CAMERA_COUNT, help="Number of camera/depth views to export. IsaacSim currently has only camera0.")
@@ -1073,7 +1233,25 @@ def main() -> None:
     object_list_path = args.object_list.resolve() if args.object_list is not None else None
     class_to_id, asset_to_class, class_names = load_class_map(object_list_path)
 
-    scenarios = discover_scenarios(source)
+    all_scenarios = discover_scenarios(source)
+    if not all_scenarios:
+        raise SystemExit(f"No Isaac Sim scenarios found under {source}")
+    object_id_registry, object_id_entries = build_global_object_id_registry(
+        all_scenarios,
+        classes,
+        args.min_box_size,
+        class_to_id,
+        asset_to_class,
+        args.object_id_location_decimals,
+        args.object_id_size_decimals,
+    )
+    print(
+        "Built global static-object ID registry: "
+        f"{len(object_id_registry)} object(s), id_format=seven_digit_numeric_string",
+        flush=True,
+    )
+
+    scenarios = list(all_scenarios)
     include_substrings = parse_csv(args.include_substrings)
     if include_substrings:
         scenarios = [
@@ -1117,6 +1295,12 @@ def main() -> None:
     if not scenarios:
         raise SystemExit(f"No Isaac Sim scenarios found under {source}")
 
+    worker_count = args.workers if args.workers is not None else default_worker_count()
+    if worker_count < 1:
+        raise SystemExit("--workers must be >= 1")
+    worker_count = min(worker_count, len(scenarios))
+    print(f"Converting {len(scenarios)} scenario(s) with {worker_count} worker(s)", flush=True)
+
     assignment_path = output / "heter_modality_assign.json"
     if assignment_path.is_file():
         with assignment_path.open("r", encoding="utf-8") as f:
@@ -1124,33 +1308,51 @@ def main() -> None:
     else:
         assignment_json = {}
     frame_count = 0
-    for scenario in scenarios:
-        nframes, assignment, skipped_lidar_sparse = convert_scenario(
-            scenario,
-            output_split,
-            depth_split,
-            copy_files=args.copy_files,
-            image_size=image_size,
-            limit_frames=args.limit_frames,
-            skip_initial_frames=args.skip_initial_frames,
-            classes=classes,
-            min_box_size=args.min_box_size,
-            detection_class=args.detection_class,
-            class_to_id=class_to_id,
-            asset_to_class=asset_to_class,
-            camera_count=args.camera_count,
-            visibility_range=args.visibility_range,
-            min_lidar_points_in_range=args.min_lidar_points_in_range,
-            lidar_filter_range=args.lidar_filter_range,
-            lidar_filter_aug_rotation_range=args.lidar_filter_aug_rotation_range,
-            lidar_filter_aug_rotation_samples=args.lidar_filter_aug_rotation_samples,
-            lidar_filter_aug_scales=args.lidar_filter_aug_scales,
-            lidar_filter_aug_flip_x=not args.disable_lidar_filter_aug_flip_x,
-        )
-        assignment_json[scenario.name] = assignment
-        frame_count += nframes * len(scenario.robots)
+    robot_counts = {scenario.name: len(scenario.robots) for scenario in scenarios}
+    convert_kwargs = {
+        "output_split": output_split,
+        "depth_split": depth_split,
+        "copy_files": True,
+        "image_size": image_size,
+        "limit_frames": args.limit_frames,
+        "skip_initial_frames": args.skip_initial_frames,
+        "classes": classes,
+        "min_box_size": args.min_box_size,
+        "detection_class": args.detection_class,
+        "class_to_id": class_to_id,
+        "asset_to_class": asset_to_class,
+        "camera_count": args.camera_count,
+        "visibility_range": args.visibility_range,
+        "min_lidar_points_in_range": args.min_lidar_points_in_range,
+        "lidar_filter_range": args.lidar_filter_range,
+        "lidar_filter_aug_rotation_range": args.lidar_filter_aug_rotation_range,
+        "lidar_filter_aug_rotation_samples": args.lidar_filter_aug_rotation_samples,
+        "lidar_filter_aug_scales": args.lidar_filter_aug_scales,
+        "lidar_filter_aug_flip_x": not args.disable_lidar_filter_aug_flip_x,
+        "object_id_location_decimals": args.object_id_location_decimals,
+        "object_id_size_decimals": args.object_id_size_decimals,
+        "object_id_registry": object_id_registry,
+    }
+
+    def record_result(result: Tuple[str, int, Dict[str, str], int]) -> None:
+        nonlocal frame_count
+        scenario_name, nframes, assignment, skipped_lidar_sparse = result
+        assignment_json[scenario_name] = assignment
+        frame_count += nframes * robot_counts[scenario_name]
         skip_msg = f", skipped {skipped_lidar_sparse} sparse lidar frame(s)" if skipped_lidar_sparse else ""
-        print(f"{scenario.name}: {len(scenario.robots)} CAV(s), {nframes} shared frame(s){skip_msg}", flush=True)
+        print(f"{scenario_name}: {robot_counts[scenario_name]} CAV(s), {nframes} shared frame(s){skip_msg}", flush=True)
+
+    if worker_count == 1:
+        for scenario in scenarios:
+            record_result(convert_scenario_task(scenario, convert_kwargs))
+    else:
+        with ProcessPoolExecutor(max_workers=worker_count) as executor:
+            futures = [
+                executor.submit(convert_scenario_task, scenario, convert_kwargs)
+                for scenario in scenarios
+            ]
+            for future in as_completed(futures):
+                record_result(future.result())
 
     # A split conversion can be run after, or in parallel with, another split.
     # Reload right before writing so heter_modality_assign.json accumulates all
@@ -1164,6 +1366,20 @@ def main() -> None:
     output.mkdir(parents=True, exist_ok=True)
     with assignment_path.open("w", encoding="utf-8") as f:
         json.dump(assignment_json, f, indent=2, sort_keys=True)
+    object_id_path = output / "isaacsim_global_object_ids.json"
+    with object_id_path.open("w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "id_format": "seven_digit_numeric_string",
+                "id_source": "scene_location_size",
+                "location_decimals": args.object_id_location_decimals,
+                "size_decimals": args.object_id_size_decimals,
+                "objects": object_id_entries,
+            },
+            f,
+            indent=2,
+            sort_keys=True,
+        )
     if class_names:
         class_map_path = output / "isaacsim_class_map.json"
         with class_map_path.open("w", encoding="utf-8") as f:
@@ -1183,6 +1399,7 @@ def main() -> None:
     print(f"\nWrote OPV2V-like data: {output_split}", flush=True)
     print(f"Wrote depth mirror:    {depth_split}", flush=True)
     print(f"Wrote assignment JSON: {assignment_path}", flush=True)
+    print(f"Wrote object ID map:   {object_id_path}", flush=True)
     if class_names:
         print(f"Wrote class metadata: {class_map_path}", flush=True)
     print(f"Total CAV frames:      {frame_count}", flush=True)
