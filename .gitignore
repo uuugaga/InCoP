@@ -65,6 +65,10 @@ datasets/
 *.pth
 *.pt
 
+# Local InCoP dataset (preserve setup instructions)
+/dataset/*
+!/dataset/README.md
+
 # Local Isaac Sim assets (preserve only setup documentation)
 /IsaacSimGenScript/assets/**
 !/IsaacSimGenScript/assets/README.md
