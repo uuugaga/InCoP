@@ -60,7 +60,7 @@ logs/
 
 # Large datasets and model weights
 data/
-datasets/
+/datasets/
 *.ckpt
 *.pth
 *.pt
