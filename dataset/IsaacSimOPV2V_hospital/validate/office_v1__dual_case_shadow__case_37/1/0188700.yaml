@@ -1,0 +1,234 @@
+camera0:
+  cords:
+  - -2.962722689471127
+  - 21.750570835268448
+  - 0.31350443502416353
+  - 89.99996023665877
+  - -2.4494732266646184
+  - -7.484056424061529e-05
+  extrinsic:
+  - - -2.5445633179746775e-07
+    - 6.324717323773126e-07
+    - 0.9999999999997673
+    - 0.12000214987222814
+  - - -0.9999999999996324
+    - 8.182864391403164e-07
+    - -2.544568494239147e-07
+    - 1.9617370502632918e-07
+  - - -8.182866000768902e-07
+    - -0.9999999999994648
+    - 6.324715241589145e-07
+    - -0.15621992972150409
+  - - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+  intrinsic:
+  - - 640.0
+    - 0.0
+    - 640.0
+  - - 0.0
+    - 640.0
+    - 400.0
+  - - 0.0
+    - 0.0
+    - 1.0
+ego_speed: 0.0
+lidar_pose:
+- -2.9678510812633925
+- 21.630678308901615
+- 0.46972435736184165
+- -2.7956194727035614e-05
+- 87.55054135260467
+- 3.525399344601098e-06
+true_ego_pos:
+- -2.9678510812633925
+- 21.630678308901615
+- 0.46972435736184165
+- -2.7956194727035614e-05
+- 87.55054135260467
+- 3.525399344601098e-06
+predicted_ego_pos:
+- -2.9678510812633925
+- 21.630678308901615
+- 0.46972435736184165
+- -2.7956194727035614e-05
+- 87.55054135260467
+- 3.525399344601098e-06
+vehicles:
+  '0000282':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.09141
+    - 0.147877
+    - 0.33678
+    location:
+    - -4.174074
+    - 35.204165
+    - 0.336778
+    class: object
+    obj_type: object
+    class_name: fire_extinguisher
+    class_id: 5
+    raw_class: fire_extinguisher
+  '0000225':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.09141
+    - 0.1478785
+    - 0.33678
+    location:
+    - -1.741191
+    - 23.467069
+    - 0.33677
+    class: object
+    obj_type: object
+    class_name: fire_extinguisher
+    class_id: 5
+    raw_class: fire_extinguisher
+  '0000325':
+    angle:
+    - 0.0
+    - -89.45028556738315
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.300071
+    - 0.2996575
+    - 0.4386135
+    location:
+    - 1.04359
+    - 31.711576
+    - 0.438614
+    class: object
+    obj_type: object
+    class_name: chair
+    class_id: 1
+    raw_class: chair
+  '0000283':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.4079185
+    - 0.2757635
+    - 0.2103285
+    location:
+    - -4.259406
+    - 24.771323
+    - 0.211588
+    class: object
+    obj_type: object
+    class_name: medical_bag
+    class_id: 2
+    raw_class: medical_bag
+  '0000226':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.1334945
+    - 0.116166
+    - 0.322187
+    location:
+    - -1.774995
+    - 35.140662
+    - 0.322673
+    class: object
+    obj_type: object
+    class_name: wet_floor_sign
+    class_id: 4
+    raw_class: wet_floor_sign
+  '0000287':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.43503
+    - 0.4631655
+    - 0.4764865
+    location:
+    - -4.530248
+    - 29.393349
+    - 0.476487
+    class: object
+    obj_type: object
+    class_name: potted_plant
+    class_id: 0
+    raw_class: plant
+  '0000285':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.43503
+    - 0.4631635
+    - 0.4764865
+    location:
+    - -4.306224
+    - 46.516241
+    - 0.476486
+    class: object
+    obj_type: object
+    class_name: potted_plant
+    class_id: 0
+    raw_class: plant
+  '0000284':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.652459
+    - 0.7708035
+    - 0.8774795
+    location:
+    - -4.273215
+    - 37.216738
+    - 0.877479
+    class: object
+    obj_type: object
+    class_name: potted_plant
+    class_id: 0
+    raw_class: plant

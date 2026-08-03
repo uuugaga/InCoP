@@ -1,0 +1,74 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+
+# Native and packaging artifacts
+*.so
+*.c
+build/
+dist/
+develop-eggs/
+.eggs/
+*.egg
+*.egg-info/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+
+# Local Python environments
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+env/
+venv/
+.python-version
+
+# Editors and operating-system metadata
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Generated IsaacSim datasets and archives
+/IsaacSimGenScript/Dataset/
+/IsaacSimGenScript/Dataset_filtered.tar.zst
+/IsaacSimGenScript/Dataset*.tar
+/IsaacSimGenScript/Dataset*.tar.*
+
+# Runtime, training, and evaluation outputs
+*.log
+*.tmp
+*.part
+outputs/
+checkpoints/
+wandb/
+runs/
+logs/
+/IsaacSimGenScript/visualization_outputs/
+
+# Large datasets and model weights
+data/
+datasets/
+*.ckpt
+*.pth
+*.pt
+
+# Local Isaac Sim assets (preserve only setup documentation)
+/IsaacSimGenScript/assets/**
+!/IsaacSimGenScript/assets/README.md
+
+# Regenerable planning outputs (preserve only structure documentation)
+/IsaacSimGenScript/map/planning/trajectory/**
+!/IsaacSimGenScript/map/planning/trajectory/README.md

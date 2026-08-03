@@ -1,0 +1,234 @@
+camera0:
+  cords:
+  - -8.350464475163909
+  - 2.1188681103520945
+  - 0.3135058373938375
+  - 89.99998888375032
+  - 2.2598297513391996
+  - -2.416100352587421e-05
+  extrinsic:
+  - - -3.880072159176822e-06
+    - -6.775059495231106e-08
+    - 0.9999999999924704
+    - 0.11999994413866011
+  - - -0.9999999999924222
+    - 3.177114771786968e-07
+    - -3.8800721376026465e-06
+    - -3.099040684766954e-07
+  - - -3.177112142991084e-07
+    - -0.9999999999999472
+    - -6.775182769525463e-08
+    - -0.15622003877749985
+  - - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+  intrinsic:
+  - - 640.0
+    - 0.0
+    - 640.0
+  - - 0.0
+    - 640.0
+    - 400.0
+  - - 0.0
+    - 0.0
+    - 1.0
+ego_speed: 0.0
+lidar_pose:
+- -8.345732554607459
+- 1.9989614577609804
+- 0.4697258447592914
+- -5.957433648635602e-06
+- 92.2600520630918
+- 1.4998166586044265e-05
+true_ego_pos:
+- -8.345732554607459
+- 1.9989614577609804
+- 0.4697258447592914
+- -5.957433648635602e-06
+- 92.2600520630918
+- 1.4998166586044265e-05
+predicted_ego_pos:
+- -8.345732554607459
+- 1.9989614577609804
+- 0.4697258447592914
+- -5.957433648635602e-06
+- 92.2600520630918
+- 1.4998166586044265e-05
+vehicles:
+  '0000010':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.4079185
+    - 0.275764
+    - 0.2103285
+    location:
+    - -10.512002
+    - 7.683871
+    - 0.211589
+    class: object
+    obj_type: object
+    class_name: medical_bag
+    class_id: 2
+    raw_class: medical_bag
+  '0000011':
+    angle:
+    - 0.0
+    - 90.00003857181117
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.0914095
+    - 0.147878
+    - 0.33678
+    location:
+    - -10.920822
+    - 8.78553
+    - 1.461316
+    class: object
+    obj_type: object
+    class_name: fire_extinguisher
+    class_id: 5
+    raw_class: fire_extinguisher
+  '0000045':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.1678485
+    - 0.1669725
+    - 0.231406
+    location:
+    - -2.95
+    - 8.989999
+    - 0.231406
+    class: object
+    obj_type: object
+    class_name: traffic_cone
+    class_id: 3
+    raw_class: traffic_cone
+  '0000081':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.1678485
+    - 0.166972
+    - 0.231406
+    location:
+    - -4.08
+    - 9.33
+    - 0.231406
+    class: object
+    obj_type: object
+    class_name: traffic_cone
+    class_id: 3
+    raw_class: traffic_cone
+  '0000008':
+    angle:
+    - 0.0
+    - 0.0
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.1678485
+    - 0.166972
+    - 0.231406
+    location:
+    - -1.84
+    - 9.33
+    - 0.231406
+    class: object
+    obj_type: object
+    class_name: traffic_cone
+    class_id: 3
+    raw_class: traffic_cone
+  '0000077':
+    angle:
+    - 0.0
+    - -10.00006158153631
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.1334945
+    - 0.116167
+    - 0.322187
+    location:
+    - -3.52
+    - 8.770001
+    - 0.322673
+    class: object
+    obj_type: object
+    class_name: wet_floor_sign
+    class_id: 4
+    raw_class: wet_floor_sign
+  '0000062':
+    angle:
+    - 0.0
+    - -90.00003857181117
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.09141
+    - 0.1478785
+    - 0.33678
+    location:
+    - -24.858526
+    - 25.050826
+    - 1.274848
+    class: object
+    obj_type: object
+    class_name: fire_extinguisher
+    class_id: 5
+    raw_class: fire_extinguisher
+  '0000083':
+    angle:
+    - 0.0
+    - 84.89143227886574
+    - 0.0
+    center:
+    - 0.0
+    - 0.0
+    - 0.0
+    extent:
+    - 0.300046
+    - 0.2996345
+    - 0.4386135
+    location:
+    - -5.428145
+    - 7.771193
+    - 0.438614
+    class: object
+    obj_type: object
+    class_name: chair
+    class_id: 1
+    raw_class: chair

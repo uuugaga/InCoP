@@ -1,0 +1,6111 @@
+{
+  "id_format": "seven_digit_numeric_string",
+  "id_source": "scene_location_size",
+  "location_decimals": 2,
+  "objects": {
+    "0000000": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-0.15,-21.10,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -0.153582,
+        -21.104178,
+        0.342856
+      ],
+      "object_id": "0000000",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000001": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-0.15,-7.93,0.56|size=0.82,0.55,0.42",
+      "location": [
+        -0.148581,
+        -7.929521,
+        0.564543
+      ],
+      "object_id": "0000001",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000002": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304919,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-0.48,-10.08,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -0.477915,
+        -10.079975,
+        0.87748
+      ],
+      "object_id": "0000002",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000003": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.00,-21.06,1.35|size=0.94,1.01,1.55",
+      "location": [
+        -0.997124,
+        -21.063102,
+        1.349875
+      ],
+      "object_id": "0000003",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000004": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.01,8.79,1.46|size=0.18,0.30,0.67",
+      "location": [
+        -1.010823,
+        8.785531,
+        1.461316
+      ],
+      "object_id": "0000004",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000005": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.03,-21.94,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -1.033683,
+        -21.942061,
+        0.231407
+      ],
+      "object_id": "0000005",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000006": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.62,8.71,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -1.62,
+        8.71,
+        0.322673
+      ],
+      "object_id": "0000006",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000007": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266991,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.71,-21.15,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -1.705344,
+        -21.150503,
+        0.322673
+      ],
+      "object_id": "0000007",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000008": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-1.84,9.33,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -1.84,
+        9.33,
+        0.231406
+      ],
+      "object_id": "0000008",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000009": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.644661,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-10.06,-18.68,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -10.064505,
+        -18.680008,
+        0.439051
+      ],
+      "object_id": "0000009",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000010": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-10.51,7.68,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -10.512002,
+        7.683871,
+        0.211589
+      ],
+      "object_id": "0000010",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000011": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-10.92,8.79,1.46|size=0.18,0.30,0.67",
+      "location": [
+        -10.920822,
+        8.78553,
+        1.461316
+      ],
+      "object_id": "0000011",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000012": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-11.00,-17.87,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -11.001614,
+        -17.87248,
+        0.339197
+      ],
+      "object_id": "0000012",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000013": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-11.32,-20.08,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -11.316844,
+        -20.083237,
+        0.322673
+      ],
+      "object_id": "0000013",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000014": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=-11.88,-1.20,0.50|size=0.25,0.25,0.30",
+      "location": [
+        -11.884116,
+        -1.20055,
+        0.504508
+      ],
+      "object_id": "0000014",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000015": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=full_warehouse_v1|location=-12.65,0.25,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -12.652229,
+        0.251623,
+        0.588498
+      ],
+      "object_id": "0000015",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000016": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=-12.73,-23.00,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -12.734694,
+        -22.997305,
+        0.3575
+      ],
+      "object_id": "0000016",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000017": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.644661,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-12.81,-15.39,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -12.807814,
+        -15.393222,
+        0.439052
+      ],
+      "object_id": "0000017",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000018": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.92633,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-13.05,-12.87,1.05|size=0.87,0.93,0.95",
+      "location": [
+        -13.049079,
+        -12.874177,
+        1.04934
+      ],
+      "object_id": "0000018",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000019": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.26699,
+        0.232332,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-13.90,-9.38,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -13.899862,
+        -9.377787,
+        0.322673
+      ],
+      "object_id": "0000019",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000020": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=-14.33,-6.86,1.77|size=0.94,1.01,1.55",
+      "location": [
+        -14.330913,
+        -6.861405,
+        1.770377
+      ],
+      "object_id": "0000020",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000021": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=-14.36,-17.64,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -14.362612,
+        -17.637115,
+        0.151554
+      ],
+      "object_id": "0000021",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000022": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-14.81,-6.99,0.56|size=0.82,0.55,0.42",
+      "location": [
+        -14.811524,
+        -6.989849,
+        0.564543
+      ],
+      "object_id": "0000022",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000023": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-14.96,25.05,1.27|size=0.18,0.30,0.67",
+      "location": [
+        -14.958525,
+        25.050826,
+        1.274848
+      ],
+      "object_id": "0000023",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000024": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.07,-23.10,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -15.072001,
+        -23.104813,
+        0.231406
+      ],
+      "object_id": "0000024",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000025": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.18,7.52,0.17|size=0.25,0.25,0.34",
+      "location": [
+        -15.179,
+        7.519379,
+        0.1725
+      ],
+      "object_id": "0000025",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000026": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.24,6.51,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -15.241927,
+        6.513749,
+        0.476487
+      ],
+      "object_id": "0000026",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000027": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.44,-3.44,1.47|size=0.87,0.93,0.95",
+      "location": [
+        -15.441593,
+        -3.437421,
+        1.469843
+      ],
+      "object_id": "0000027",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000028": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.61,-21.70,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -15.610767,
+        -21.704421,
+        0.211588
+      ],
+      "object_id": "0000028",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000029": {
+      "class_name": "chair",
+      "dimensions": [
+        0.66366,
+        0.644661,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.71,-10.24,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -15.706318,
+        -10.239624,
+        0.439051
+      ],
+      "object_id": "0000029",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000030": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-15.88,-6.82,1.33|size=0.18,0.30,0.67",
+      "location": [
+        -15.877292,
+        -6.821135,
+        1.330119
+      ],
+      "object_id": "0000030",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000031": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.299999,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=-16.61,-10.97,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -16.60504,
+        -10.973818,
+        0.3575
+      ],
+      "object_id": "0000031",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000032": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541607,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-16.66,-18.03,1.45|size=1.30,1.54,1.75",
+      "location": [
+        -16.659614,
+        -18.029699,
+        1.450333
+      ],
+      "object_id": "0000032",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000033": {
+      "class_name": "chair",
+      "dimensions": [
+        0.63123,
+        0.651263,
+        1.176997
+      ],
+      "key": "scene=full_warehouse_v1|location=-16.85,-2.01,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -16.852218,
+        -2.006085,
+        0.588498
+      ],
+      "object_id": "0000033",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000034": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685673,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=-17.04,0.08,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -17.043144,
+        0.082091,
+        0.532218
+      ],
+      "object_id": "0000034",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000035": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=-17.24,-15.01,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -17.241547,
+        -15.007432,
+        0.532218
+      ],
+      "object_id": "0000035",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000036": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-18.25,-16.71,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -18.246961,
+        -16.712563,
+        0.231406
+      ],
+      "object_id": "0000036",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000037": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766449,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=full_warehouse_v1|location=-18.91,-22.84,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -18.911428,
+        -22.841498,
+        0.532822
+      ],
+      "object_id": "0000037",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000038": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-19.21,1.65,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -19.210383,
+        1.650994,
+        0.33939
+      ],
+      "object_id": "0000038",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000039": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=-19.58,-13.53,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -19.57932,
+        -13.529355,
+        0.777021
+      ],
+      "object_id": "0000039",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000040": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.20,-3.33,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -2.196052,
+        -3.327089,
+        0.438614
+      ],
+      "object_id": "0000040",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000041": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.21,-10.15,1.02|size=0.60,0.60,0.88",
+      "location": [
+        -2.20601,
+        -10.153606,
+        1.017749
+      ],
+      "object_id": "0000041",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000042": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.48,-16.60,0.78|size=0.82,0.55,0.42",
+      "location": [
+        -2.477202,
+        -16.59756,
+        0.784441
+      ],
+      "object_id": "0000042",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000043": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.70,0.67,0.87|size=1.30,1.54,1.75",
+      "location": [
+        -2.702125,
+        0.673547,
+        0.874288
+      ],
+      "object_id": "0000043",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000044": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.95,14.43,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -2.95,
+        14.43,
+        0.231406
+      ],
+      "object_id": "0000044",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000045": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-2.95,8.99,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -2.95,
+        8.989999,
+        0.231406
+      ],
+      "object_id": "0000045",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000046": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815836,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.20,-11.03,0.78|size=0.82,0.55,0.42",
+      "location": [
+        -20.201739,
+        -11.02535,
+        0.784441
+      ],
+      "object_id": "0000046",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000047": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.23,-17.27,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -20.230629,
+        -17.267704,
+        0.322673
+      ],
+      "object_id": "0000047",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000048": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.64466,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.24,7.12,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -20.239859,
+        7.119186,
+        0.439056
+      ],
+      "object_id": "0000048",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000049": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.32,-8.37,0.50|size=0.25,0.25,0.30",
+      "location": [
+        -20.322977,
+        -8.370023,
+        0.504509
+      ],
+      "object_id": "0000049",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000050": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335698,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.59,-5.48,0.58|size=0.34,0.33,0.46",
+      "location": [
+        -20.594292,
+        -5.484848,
+        0.584362
+      ],
+      "object_id": "0000050",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000051": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.83,8.79,1.46|size=0.18,0.30,0.67",
+      "location": [
+        -20.830822,
+        8.785531,
+        1.461316
+      ],
+      "object_id": "0000051",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000052": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-20.95,-21.12,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -20.952579,
+        -21.117066,
+        0.231406
+      ],
+      "object_id": "0000052",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000053": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-22.14,-17.35,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -22.135223,
+        -17.347205,
+        0.231406
+      ],
+      "object_id": "0000053",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000054": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-22.36,-20.53,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -22.356565,
+        -20.530445,
+        0.322673
+      ],
+      "object_id": "0000054",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000055": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-22.86,-5.37,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -22.861059,
+        -5.372585,
+        0.476487
+      ],
+      "object_id": "0000055",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000056": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=-22.88,-20.28,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -22.884279,
+        -20.275339,
+        0.151553
+      ],
+      "object_id": "0000056",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000057": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.299999,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=-22.89,-13.90,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -22.891167,
+        -13.895484,
+        0.3575
+      ],
+      "object_id": "0000057",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000058": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-23.52,-21.18,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -23.515347,
+        -21.181129,
+        0.211589
+      ],
+      "object_id": "0000058",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000059": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-23.77,-14.78,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -23.766967,
+        -14.779747,
+        0.211589
+      ],
+      "object_id": "0000059",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000060": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=-23.84,-21.61,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -23.843482,
+        -21.613303,
+        0.777022
+      ],
+      "object_id": "0000060",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000061": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266988,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-23.97,5.19,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -23.974588,
+        5.187871,
+        0.322673
+      ],
+      "object_id": "0000061",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000062": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-24.86,25.05,1.27|size=0.18,0.30,0.67",
+      "location": [
+        -24.858526,
+        25.050826,
+        1.274848
+      ],
+      "object_id": "0000062",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000063": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.46,3.04,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -25.460239,
+        3.043017,
+        0.211588
+      ],
+      "object_id": "0000063",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000064": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651263,
+        1.176997
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.49,6.55,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -25.485294,
+        6.550486,
+        0.588499
+      ],
+      "object_id": "0000064",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000065": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.64466,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.55,-1.24,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -25.550508,
+        -1.238295,
+        0.439051
+      ],
+      "object_id": "0000065",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000066": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926331,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.57,-18.82,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -25.571074,
+        -18.816717,
+        0.476487
+      ],
+      "object_id": "0000066",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000067": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694387,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.67,4.64,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -25.670918,
+        4.641885,
+        0.532218
+      ],
+      "object_id": "0000067",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000068": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232336,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.73,-9.91,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -25.730203,
+        -9.913056,
+        0.322673
+      ],
+      "object_id": "0000068",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000069": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.76,1.00,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -25.764607,
+        0.997348,
+        0.87748
+      ],
+      "object_id": "0000069",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000070": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685673,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.77,-17.31,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -25.773985,
+        -17.314241,
+        0.532218
+      ],
+      "object_id": "0000070",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000071": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.82,-5.59,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -25.819886,
+        -5.590526,
+        0.438615
+      ],
+      "object_id": "0000071",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000072": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.299999,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.87,-19.91,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -25.872313,
+        -19.910139,
+        0.3575
+      ],
+      "object_id": "0000072",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000073": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-25.98,-16.17,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -25.983704,
+        -16.168342,
+        0.336817
+      ],
+      "object_id": "0000073",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000074": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-26.01,-13.97,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -26.014332,
+        -13.973212,
+        0.231406
+      ],
+      "object_id": "0000074",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000075": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232335,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.30,-19.25,0.90|size=0.27,0.23,0.64",
+      "location": [
+        -3.298795,
+        -19.245376,
+        0.895526
+      ],
+      "object_id": "0000075",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000076": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.33,-2.57,0.56|size=0.82,0.55,0.42",
+      "location": [
+        -3.328468,
+        -2.573175,
+        0.564544
+      ],
+      "object_id": "0000076",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000077": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.52,8.77,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -3.52,
+        8.770001,
+        0.322673
+      ],
+      "object_id": "0000077",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000078": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.54,-12.45,0.33|size=0.18,0.30,0.67",
+      "location": [
+        -3.537,
+        -12.44659,
+        0.33389
+      ],
+      "object_id": "0000078",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000079": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254483,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.93,-13.68,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -3.930392,
+        -13.684751,
+        0.151553
+      ],
+      "object_id": "0000079",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000080": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-3.99,14.14,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -3.99,
+        14.14,
+        0.231406
+      ],
+      "object_id": "0000080",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000081": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-4.08,9.33,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -4.08,
+        9.33,
+        0.231406
+      ],
+      "object_id": "0000081",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000082": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=-5.04,25.05,1.27|size=0.18,0.30,0.67",
+      "location": [
+        -5.038525,
+        25.050823,
+        1.274848
+      ],
+      "object_id": "0000082",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000083": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=full_warehouse_v1|location=-5.43,7.77,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -5.428145,
+        7.771193,
+        0.438614
+      ],
+      "object_id": "0000083",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000084": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541609,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-5.53,-15.28,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -5.532044,
+        -15.280049,
+        0.87748
+      ],
+      "object_id": "0000084",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000085": {
+      "class_name": "chair",
+      "dimensions": [
+        0.63123,
+        0.651263,
+        1.176997
+      ],
+      "key": "scene=full_warehouse_v1|location=-5.58,-22.64,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -5.58062,
+        -22.640823,
+        0.588499
+      ],
+      "object_id": "0000085",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000086": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=-5.75,-7.66,1.47|size=0.87,0.93,0.95",
+      "location": [
+        -5.754309,
+        -7.658478,
+        1.469844
+      ],
+      "object_id": "0000086",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000087": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.64466,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=-6.29,-6.96,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -6.28562,
+        -6.958774,
+        0.439051
+      ],
+      "object_id": "0000087",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000088": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-7.34,-1.83,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -7.341961,
+        -1.831033,
+        0.231406
+      ],
+      "object_id": "0000088",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000089": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304919,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=-7.57,-10.97,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -7.569633,
+        -10.972625,
+        0.87748
+      ],
+      "object_id": "0000089",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000090": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=-7.57,-13.11,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -7.569613,
+        -13.114838,
+        0.3575
+      ],
+      "object_id": "0000090",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000091": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=-7.96,-4.13,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -7.964003,
+        -4.129708,
+        0.532218
+      ],
+      "object_id": "0000091",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000092": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=full_warehouse_v1|location=-8.20,-20.76,0.17|size=0.25,0.25,0.34",
+      "location": [
+        -8.20307,
+        -20.761057,
+        0.1725
+      ],
+      "object_id": "0000092",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000093": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766451,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=full_warehouse_v1|location=-8.91,-2.13,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -8.9147,
+        -2.13182,
+        0.532822
+      ],
+      "object_id": "0000093",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000094": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335698,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=-9.34,-18.65,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -9.336426,
+        -18.648507,
+        0.231406
+      ],
+      "object_id": "0000094",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000095": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=full_warehouse_v1|location=-9.66,-6.76,0.53|size=0.25,0.25,0.34",
+      "location": [
+        -9.662262,
+        -6.763645,
+        0.525455
+      ],
+      "object_id": "0000095",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000096": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=full_warehouse_v1|location=0.67,-13.10,0.17|size=0.25,0.25,0.34",
+      "location": [
+        0.665551,
+        -13.101443,
+        0.1725
+      ],
+      "object_id": "0000096",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000097": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=full_warehouse_v1|location=1.06,-4.24,0.53|size=0.69,0.69,1.07",
+      "location": [
+        1.063402,
+        -4.241946,
+        0.532219
+      ],
+      "object_id": "0000097",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000098": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=1.75,-22.98,0.21|size=0.82,0.55,0.42",
+      "location": [
+        1.749476,
+        -22.980435,
+        0.211589
+      ],
+      "object_id": "0000098",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000099": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254483,
+        0.302569
+      ],
+      "key": "scene=full_warehouse_v1|location=1.94,-4.33,0.15|size=0.25,0.25,0.30",
+      "location": [
+        1.936367,
+        -4.326488,
+        0.151553
+      ],
+      "object_id": "0000099",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000100": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=2.83,-18.98,0.32|size=0.27,0.23,0.64",
+      "location": [
+        2.834964,
+        -18.983234,
+        0.322673
+      ],
+      "object_id": "0000100",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000101": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=full_warehouse_v1|location=3.01,0.51,0.32|size=0.27,0.23,0.64",
+      "location": [
+        3.010658,
+        0.514167,
+        0.322186
+      ],
+      "object_id": "0000101",
+      "raw_class": "wet_floor_sign",
+      "scene": "full_warehouse_v1"
+    },
+    "0000102": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=3.14,-16.47,0.78|size=0.94,1.01,1.55",
+      "location": [
+        3.142839,
+        -16.469759,
+        0.777022
+      ],
+      "object_id": "0000102",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000103": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=3.81,-8.89,0.23|size=0.34,0.33,0.46",
+      "location": [
+        3.805893,
+        -8.89422,
+        0.231406
+      ],
+      "object_id": "0000103",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000104": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=3.87,-15.84,0.36|size=0.30,0.30,0.71",
+      "location": [
+        3.866899,
+        -15.844627,
+        0.3575
+      ],
+      "object_id": "0000104",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000105": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=3.95,25.05,1.27|size=0.18,0.30,0.67",
+      "location": [
+        3.951475,
+        25.050826,
+        1.274848
+      ],
+      "object_id": "0000105",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000106": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304919,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=4.15,7.71,0.88|size=1.30,1.54,1.75",
+      "location": [
+        4.150574,
+        7.707169,
+        0.87748
+      ],
+      "object_id": "0000106",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000107": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=full_warehouse_v1|location=4.38,5.41,0.21|size=0.82,0.55,0.42",
+      "location": [
+        4.382323,
+        5.408232,
+        0.211588
+      ],
+      "object_id": "0000107",
+      "raw_class": "medical_bag",
+      "scene": "full_warehouse_v1"
+    },
+    "0000108": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=full_warehouse_v1|location=4.52,-0.02,0.23|size=0.34,0.33,0.46",
+      "location": [
+        4.523443,
+        -0.021176,
+        0.231406
+      ],
+      "object_id": "0000108",
+      "raw_class": "traffic_cone",
+      "scene": "full_warehouse_v1"
+    },
+    "0000109": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=full_warehouse_v1|location=4.71,-22.86,0.36|size=0.30,0.30,0.71",
+      "location": [
+        4.711267,
+        -22.863993,
+        0.3575
+      ],
+      "object_id": "0000109",
+      "raw_class": "trash_can",
+      "scene": "full_warehouse_v1"
+    },
+    "0000110": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304919,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=full_warehouse_v1|location=4.72,-9.23,0.88|size=1.30,1.54,1.75",
+      "location": [
+        4.716937,
+        -9.227907,
+        0.87748
+      ],
+      "object_id": "0000110",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000111": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=full_warehouse_v1|location=4.75,-1.49,0.34|size=0.18,0.30,0.67",
+      "location": [
+        4.753801,
+        -1.48846,
+        0.336769
+      ],
+      "object_id": "0000111",
+      "raw_class": "fire_extinguisher",
+      "scene": "full_warehouse_v1"
+    },
+    "0000112": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766451,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=full_warehouse_v1|location=4.79,-10.43,0.53|size=0.77,0.73,1.06",
+      "location": [
+        4.787404,
+        -10.432966,
+        0.532822
+      ],
+      "object_id": "0000112",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000113": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=full_warehouse_v1|location=4.80,1.82,0.78|size=0.94,1.01,1.55",
+      "location": [
+        4.798057,
+        1.822074,
+        0.777021
+      ],
+      "object_id": "0000113",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000114": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663659,
+        0.64466,
+        0.878103
+      ],
+      "key": "scene=full_warehouse_v1|location=4.91,-3.63,0.44|size=0.66,0.64,0.88",
+      "location": [
+        4.906971,
+        -3.629626,
+        0.439051
+      ],
+      "object_id": "0000114",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000115": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926331,
+        0.952973
+      ],
+      "key": "scene=full_warehouse_v1|location=4.92,-21.50,0.48|size=0.87,0.93,0.95",
+      "location": [
+        4.922791,
+        -21.500486,
+        0.476487
+      ],
+      "object_id": "0000115",
+      "raw_class": "plant",
+      "scene": "full_warehouse_v1"
+    },
+    "0000116": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599268,
+        0.877227
+      ],
+      "key": "scene=full_warehouse_v1|location=5.05,-19.54,0.44|size=0.60,0.60,0.88",
+      "location": [
+        5.045356,
+        -19.536028,
+        0.438614
+      ],
+      "object_id": "0000116",
+      "raw_class": "chair",
+      "scene": "full_warehouse_v1"
+    },
+    "0000117": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=-1.10,9.07,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -1.104454,
+        9.072974,
+        0.357541
+      ],
+      "object_id": "0000117",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000118": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-1.24,2.95,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -1.244366,
+        2.950016,
+        0.322714
+      ],
+      "object_id": "0000118",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000119": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=hospital_v1|location=-10.96,-2.36,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -10.963713,
+        -2.357315,
+        0.777062
+      ],
+      "object_id": "0000119",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000120": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-11.07,11.77,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -11.066087,
+        11.77274,
+        0.211629
+      ],
+      "object_id": "0000120",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000121": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-11.42,-0.81,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -11.423268,
+        -0.810633,
+        0.211629
+      ],
+      "object_id": "0000121",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000122": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-13.25,2.14,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -13.250984,
+        2.14416,
+        0.322714
+      ],
+      "object_id": "0000122",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000123": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-15.79,12.11,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -15.793837,
+        12.110439,
+        0.322714
+      ],
+      "object_id": "0000123",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000124": {
+      "class_name": "chair",
+      "dimensions": [
+        0.76645,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=-15.85,2.28,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -15.848669,
+        2.281566,
+        0.532863
+      ],
+      "object_id": "0000124",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000125": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=hospital_v1|location=-16.84,5.13,0.17|size=0.25,0.25,0.34",
+      "location": [
+        -16.837923,
+        5.126336,
+        0.172541
+      ],
+      "object_id": "0000125",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000126": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295753,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-18.17,9.01,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -18.172589,
+        9.012926,
+        0.335388
+      ],
+      "object_id": "0000126",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000127": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=hospital_v1|location=-19.57,12.46,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -19.57105,
+        12.457851,
+        0.777062
+      ],
+      "object_id": "0000127",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000128": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694387,
+        0.685675,
+        1.065394
+      ],
+      "key": "scene=hospital_v1|location=-24.00,19.01,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -23.995762,
+        19.01407,
+        0.532258
+      ],
+      "object_id": "0000128",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000129": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=hospital_v1|location=-24.12,13.84,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -24.118339,
+        13.839054,
+        0.777061
+      ],
+      "object_id": "0000129",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000130": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182821,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-24.21,5.25,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -24.211782,
+        5.246325,
+        0.336778
+      ],
+      "object_id": "0000130",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000131": {
+      "class_name": "chair",
+      "dimensions": [
+        0.663658,
+        0.644661,
+        0.878103
+      ],
+      "key": "scene=hospital_v1|location=-24.23,15.23,0.44|size=0.66,0.64,0.88",
+      "location": [
+        -24.226749,
+        15.229313,
+        0.439091
+      ],
+      "object_id": "0000131",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000132": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815878,
+        0.551722,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-25.23,7.81,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -25.227737,
+        7.811529,
+        0.211628
+      ],
+      "object_id": "0000132",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000133": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.32829,
+        0.28568,
+        0.792302
+      ],
+      "key": "scene=hospital_v1|location=-27.71,15.17,0.40|size=0.33,0.29,0.79",
+      "location": [
+        -27.706018,
+        15.166215,
+        0.396789
+      ],
+      "object_id": "0000133",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000134": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815836,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-28.06,23.29,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -28.060239,
+        23.290345,
+        0.211628
+      ],
+      "object_id": "0000134",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000135": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-30.29,14.82,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -30.289175,
+        14.823693,
+        0.234151
+      ],
+      "object_id": "0000135",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000136": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766449,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=-30.62,19.01,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -30.617992,
+        19.00526,
+        0.532862
+      ],
+      "object_id": "0000136",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000137": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815836,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-30.99,1.95,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -30.987357,
+        1.952134,
+        0.211628
+      ],
+      "object_id": "0000137",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000138": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232332,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-31.02,14.74,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -31.022465,
+        14.738433,
+        0.322713
+      ],
+      "object_id": "0000138",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000139": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=-31.82,2.03,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -31.816622,
+        2.028737,
+        0.476526
+      ],
+      "object_id": "0000139",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000140": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-31.86,14.77,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -31.862768,
+        14.770409,
+        0.231446
+      ],
+      "object_id": "0000140",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000141": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182822,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-32.03,18.16,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -32.033466,
+        18.156674,
+        0.336782
+      ],
+      "object_id": "0000141",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000142": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=-32.78,14.06,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -32.775654,
+        14.062662,
+        0.151594
+      ],
+      "object_id": "0000142",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000143": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182823,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-32.82,2.28,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -32.815926,
+        2.277501,
+        0.336782
+      ],
+      "object_id": "0000143",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000144": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335693,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-33.79,4.22,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -33.788185,
+        4.215889,
+        0.231446
+      ],
+      "object_id": "0000144",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000145": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.300001,
+        0.300003,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=-34.14,6.83,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -34.137455,
+        6.826739,
+        0.357541
+      ],
+      "object_id": "0000145",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000146": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.300003,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=-34.86,10.77,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -34.85878,
+        10.771291,
+        0.357541
+      ],
+      "object_id": "0000146",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000147": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182825,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-37.68,14.16,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -37.681216,
+        14.161929,
+        0.344901
+      ],
+      "object_id": "0000147",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000148": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182823,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-38.63,24.44,0.33|size=0.18,0.30,0.67",
+      "location": [
+        -38.628613,
+        24.437318,
+        0.334228
+      ],
+      "object_id": "0000148",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000149": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182825,
+        0.295752,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-38.78,32.53,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -38.782691,
+        32.52613,
+        0.336784
+      ],
+      "object_id": "0000149",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000150": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.81584,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-38.87,18.70,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -38.872707,
+        18.69554,
+        0.211629
+      ],
+      "object_id": "0000150",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000151": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.81584,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=-38.94,6.37,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -38.939531,
+        6.368438,
+        0.211629
+      ],
+      "object_id": "0000151",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000152": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766451,
+        0.734676,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=-39.10,8.77,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -39.097074,
+        8.76621,
+        0.532863
+      ],
+      "object_id": "0000152",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000153": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766449,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=-39.11,28.83,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -39.106415,
+        28.828757,
+        0.532863
+      ],
+      "object_id": "0000153",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000154": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=hospital_v1|location=-4.53,0.83,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -4.530612,
+        0.827679,
+        0.438655
+      ],
+      "object_id": "0000154",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000155": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335693,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-40.95,5.12,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -40.948307,
+        5.121281,
+        0.232406
+      ],
+      "object_id": "0000155",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000156": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926331,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=-41.49,25.96,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -41.494898,
+        25.95579,
+        0.476527
+      ],
+      "object_id": "0000156",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000157": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266992,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-41.54,5.84,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -41.538972,
+        5.837784,
+        0.323672
+      ],
+      "object_id": "0000157",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000158": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.342657,
+        0.351608,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-41.54,5.84,0.32|size=0.34,0.35,0.64",
+      "location": [
+        -41.538972,
+        5.837783,
+        0.323672
+      ],
+      "object_id": "0000158",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000159": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266992,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=-41.79,29.07,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -41.788754,
+        29.072458,
+        0.322714
+      ],
+      "object_id": "0000159",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000160": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335693,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-41.87,6.45,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -41.871159,
+        6.45037,
+        0.232406
+      ],
+      "object_id": "0000160",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000161": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.300003,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=-42.53,18.40,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -42.527439,
+        18.401573,
+        0.357541
+      ],
+      "object_id": "0000161",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000162": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182822,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-42.63,21.47,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -42.625769,
+        21.469544,
+        0.336775
+      ],
+      "object_id": "0000162",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000163": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=hospital_v1|location=-47.71,10.22,0.17|size=0.25,0.25,0.34",
+      "location": [
+        -47.707642,
+        10.217619,
+        0.1735
+      ],
+      "object_id": "0000163",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000164": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=hospital_v1|location=-5.20,0.83,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -5.202981,
+        0.827679,
+        0.438655
+      ],
+      "object_id": "0000164",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000165": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=-5.23,12.16,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -5.228464,
+        12.155702,
+        0.340127
+      ],
+      "object_id": "0000165",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000166": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=hospital_v1|location=-5.89,0.83,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -5.885234,
+        0.827679,
+        0.438655
+      ],
+      "object_id": "0000166",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000167": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=hospital_v1|location=-6.54,0.83,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -6.543729,
+        0.827679,
+        0.438655
+      ],
+      "object_id": "0000167",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000168": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304919,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=hospital_v1|location=-7.10,4.59,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -7.101905,
+        4.594581,
+        0.87752
+      ],
+      "object_id": "0000168",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000169": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600092,
+        0.599269,
+        0.877227
+      ],
+      "key": "scene=hospital_v1|location=-7.22,0.83,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -7.220533,
+        0.827679,
+        0.438655
+      ],
+      "object_id": "0000169",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000170": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=-8.23,4.75,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -8.226488,
+        4.751056,
+        0.231447
+      ],
+      "object_id": "0000170",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000171": {
+      "class_name": "chair",
+      "dimensions": [
+        0.76645,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=0.35,11.98,0.53|size=0.77,0.73,1.06",
+      "location": [
+        0.347529,
+        11.984671,
+        0.532863
+      ],
+      "object_id": "0000171",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000172": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254483,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=0.45,4.55,0.15|size=0.25,0.25,0.30",
+      "location": [
+        0.44697,
+        4.549053,
+        0.151594
+      ],
+      "object_id": "0000172",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000173": {
+      "class_name": "chair",
+      "dimensions": [
+        0.69442,
+        0.685712,
+        1.065394
+      ],
+      "key": "scene=hospital_v1|location=0.92,3.37,0.53|size=0.69,0.69,1.07",
+      "location": [
+        0.915853,
+        3.371906,
+        0.532259
+      ],
+      "object_id": "0000173",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000174": {
+      "class_name": "chair",
+      "dimensions": [
+        0.63123,
+        0.651263,
+        1.176997
+      ],
+      "key": "scene=hospital_v1|location=10.46,-0.37,0.59|size=0.63,0.65,1.18",
+      "location": [
+        10.461531,
+        -0.372615,
+        0.5895
+      ],
+      "object_id": "0000174",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000175": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.92633,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=10.67,10.57,0.48|size=0.87,0.93,0.95",
+      "location": [
+        10.667379,
+        10.567038,
+        0.477489
+      ],
+      "object_id": "0000175",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000176": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=hospital_v1|location=11.68,3.74,0.17|size=0.25,0.25,0.34",
+      "location": [
+        11.679126,
+        3.735685,
+        0.173502
+      ],
+      "object_id": "0000176",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000177": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=12.58,4.69,0.21|size=0.82,0.55,0.42",
+      "location": [
+        12.57969,
+        4.69312,
+        0.21259
+      ],
+      "object_id": "0000177",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000178": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=13.76,9.73,0.15|size=0.25,0.25,0.30",
+      "location": [
+        13.75536,
+        9.728887,
+        0.152555
+      ],
+      "object_id": "0000178",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000179": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=hospital_v1|location=14.27,-0.14,0.17|size=0.25,0.25,0.34",
+      "location": [
+        14.274611,
+        -0.139903,
+        0.173502
+      ],
+      "object_id": "0000179",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000180": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=14.43,2.43,0.32|size=0.27,0.23,0.64",
+      "location": [
+        14.430867,
+        2.434562,
+        0.323675
+      ],
+      "object_id": "0000180",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000181": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=14.51,-1.45,0.21|size=0.82,0.55,0.42",
+      "location": [
+        14.506644,
+        -1.449576,
+        0.21259
+      ],
+      "object_id": "0000181",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000182": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=14.51,9.82,0.34|size=0.18,0.30,0.67",
+      "location": [
+        14.508904,
+        9.824822,
+        0.341589
+      ],
+      "object_id": "0000182",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000183": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=14.52,1.30,0.48|size=0.87,0.93,0.95",
+      "location": [
+        14.521367,
+        1.302902,
+        0.477489
+      ],
+      "object_id": "0000183",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000184": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551525,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=14.57,31.85,0.21|size=0.82,0.55,0.42",
+      "location": [
+        14.572281,
+        31.849405,
+        0.212591
+      ],
+      "object_id": "0000184",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000185": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685673,
+        1.065394
+      ],
+      "key": "scene=hospital_v1|location=15.89,1.74,0.53|size=0.69,0.69,1.07",
+      "location": [
+        15.886051,
+        1.744644,
+        0.53322
+      ],
+      "object_id": "0000185",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000186": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=16.00,32.02,0.23|size=0.34,0.33,0.46",
+      "location": [
+        16.00071,
+        32.017621,
+        0.231623
+      ],
+      "object_id": "0000186",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000187": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=16.76,31.83,0.32|size=0.27,0.23,0.64",
+      "location": [
+        16.762894,
+        31.826653,
+        0.32289
+      ],
+      "object_id": "0000187",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000188": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=17.40,13.77,0.15|size=0.25,0.25,0.30",
+      "location": [
+        17.40344,
+        13.772545,
+        0.152555
+      ],
+      "object_id": "0000188",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000189": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=17.51,-4.03,0.34|size=0.18,0.30,0.67",
+      "location": [
+        17.509899,
+        -4.033297,
+        0.336773
+      ],
+      "object_id": "0000189",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000190": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=17.52,32.08,0.23|size=0.34,0.33,0.46",
+      "location": [
+        17.520092,
+        32.08479,
+        0.231623
+      ],
+      "object_id": "0000190",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000191": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=17.71,19.32,0.23|size=0.34,0.33,0.46",
+      "location": [
+        17.706419,
+        19.31919,
+        0.232408
+      ],
+      "object_id": "0000191",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000192": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815836,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=17.83,21.90,0.21|size=0.82,0.55,0.42",
+      "location": [
+        17.833835,
+        21.897738,
+        0.21259
+      ],
+      "object_id": "0000192",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000193": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815836,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=19.86,35.48,0.21|size=0.82,0.55,0.42",
+      "location": [
+        19.864295,
+        35.475044,
+        0.21259
+      ],
+      "object_id": "0000193",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000194": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=2.48,9.16,0.24|size=0.34,0.33,0.46",
+      "location": [
+        2.48481,
+        9.164824,
+        0.239347
+      ],
+      "object_id": "0000194",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000195": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.316481,
+        0.275408,
+        0.76377
+      ],
+      "key": "scene=hospital_v1|location=20.25,10.68,0.38|size=0.32,0.28,0.76",
+      "location": [
+        20.24774,
+        10.677713,
+        0.383463
+      ],
+      "object_id": "0000195",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000196": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=20.36,6.57,0.48|size=0.87,0.93,0.95",
+      "location": [
+        20.359329,
+        6.571443,
+        0.477488
+      ],
+      "object_id": "0000196",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000197": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=hospital_v1|location=20.37,2.91,0.78|size=0.94,1.01,1.55",
+      "location": [
+        20.373479,
+        2.910165,
+        0.778023
+      ],
+      "object_id": "0000197",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000198": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=20.43,9.81,0.21|size=0.82,0.55,0.42",
+      "location": [
+        20.434499,
+        9.809411,
+        0.21259
+      ],
+      "object_id": "0000198",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000199": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=20.49,1.00,0.36|size=0.30,0.30,0.71",
+      "location": [
+        20.494436,
+        1.001275,
+        0.357541
+      ],
+      "object_id": "0000199",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000200": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=20.52,-3.89,0.48|size=0.87,0.93,0.95",
+      "location": [
+        20.522926,
+        -3.889607,
+        0.477489
+      ],
+      "object_id": "0000200",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000201": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926331,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=20.56,21.23,0.48|size=0.87,0.93,0.95",
+      "location": [
+        20.556026,
+        21.22847,
+        0.477489
+      ],
+      "object_id": "0000201",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000202": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295754,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=20.66,28.45,0.34|size=0.18,0.30,0.67",
+      "location": [
+        20.659024,
+        28.453291,
+        0.339881
+      ],
+      "object_id": "0000202",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000203": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=21.09,-2.17,0.33|size=0.18,0.30,0.67",
+      "location": [
+        21.089041,
+        -2.17126,
+        0.334459
+      ],
+      "object_id": "0000203",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000204": {
+      "class_name": "chair",
+      "dimensions": [
+        0.76622,
+        0.734483,
+        1.060753
+      ],
+      "key": "scene=hospital_v1|location=22.11,18.91,0.53|size=0.77,0.73,1.06",
+      "location": [
+        22.105733,
+        18.908506,
+        0.533823
+      ],
+      "object_id": "0000204",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000205": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694593,
+        0.685878,
+        1.065394
+      ],
+      "key": "scene=hospital_v1|location=23.73,1.61,0.53|size=0.69,0.69,1.07",
+      "location": [
+        23.731615,
+        1.612209,
+        0.533225
+      ],
+      "object_id": "0000205",
+      "raw_class": "chair",
+      "scene": "hospital_v1"
+    },
+    "0000206": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=24.47,2.41,0.15|size=0.25,0.25,0.30",
+      "location": [
+        24.470354,
+        2.413202,
+        0.152554
+      ],
+      "object_id": "0000206",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000207": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=hospital_v1|location=3.35,-2.37,0.34|size=0.18,0.30,0.67",
+      "location": [
+        3.348784,
+        -2.368666,
+        0.336759
+      ],
+      "object_id": "0000207",
+      "raw_class": "fire_extinguisher",
+      "scene": "hospital_v1"
+    },
+    "0000208": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=3.45,6.59,0.23|size=0.34,0.33,0.46",
+      "location": [
+        3.454821,
+        6.585247,
+        0.231447
+      ],
+      "object_id": "0000208",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000209": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.3,
+        0.715
+      ],
+      "key": "scene=hospital_v1|location=4.21,-2.40,0.36|size=0.30,0.30,0.71",
+      "location": [
+        4.21104,
+        -2.395796,
+        0.357541
+      ],
+      "object_id": "0000209",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000210": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254483,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=hospital_v1|location=4.71,2.82,0.15|size=0.25,0.25,0.30",
+      "location": [
+        4.708253,
+        2.824442,
+        0.152555
+      ],
+      "object_id": "0000210",
+      "raw_class": "trash_can",
+      "scene": "hospital_v1"
+    },
+    "0000211": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=hospital_v1|location=5.14,2.93,0.21|size=0.82,0.55,0.42",
+      "location": [
+        5.139408,
+        2.92775,
+        0.21259
+      ],
+      "object_id": "0000211",
+      "raw_class": "medical_bag",
+      "scene": "hospital_v1"
+    },
+    "0000212": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=hospital_v1|location=5.17,12.48,0.88|size=1.30,1.54,1.75",
+      "location": [
+        5.165394,
+        12.479941,
+        0.878481
+      ],
+      "object_id": "0000212",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000213": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=hospital_v1|location=6.25,12.05,0.78|size=0.94,1.01,1.55",
+      "location": [
+        6.247797,
+        12.053034,
+        0.778586
+      ],
+      "object_id": "0000213",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000214": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.870059,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=hospital_v1|location=7.83,-2.18,0.48|size=0.87,0.93,0.95",
+      "location": [
+        7.829485,
+        -2.18022,
+        0.477488
+      ],
+      "object_id": "0000214",
+      "raw_class": "plant",
+      "scene": "hospital_v1"
+    },
+    "0000215": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=8.49,10.77,0.23|size=0.34,0.33,0.46",
+      "location": [
+        8.486773,
+        10.773858,
+        0.232408
+      ],
+      "object_id": "0000215",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000216": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=hospital_v1|location=8.51,-0.96,0.32|size=0.27,0.23,0.64",
+      "location": [
+        8.511881,
+        -0.956342,
+        0.322185
+      ],
+      "object_id": "0000216",
+      "raw_class": "wet_floor_sign",
+      "scene": "hospital_v1"
+    },
+    "0000217": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=hospital_v1|location=9.49,10.63,0.23|size=0.34,0.33,0.46",
+      "location": [
+        9.493513,
+        10.629644,
+        0.232408
+      ],
+      "object_id": "0000217",
+      "raw_class": "traffic_cone",
+      "scene": "hospital_v1"
+    },
+    "0000218": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007836,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-0.16,12.96,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -0.156337,
+        12.964071,
+        0.777021
+      ],
+      "object_id": "0000218",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000219": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937418,
+        1.007822,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-0.28,11.39,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -0.284094,
+        11.392497,
+        0.777021
+      ],
+      "object_id": "0000219",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000220": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-0.63,46.80,0.33|size=0.18,0.30,0.67",
+      "location": [
+        -0.63048,
+        46.801953,
+        0.331782
+      ],
+      "object_id": "0000220",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000221": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-0.82,-6.45,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -0.822034,
+        -6.45397,
+        0.322673
+      ],
+      "object_id": "0000221",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000222": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182821,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-0.89,11.45,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -0.888411,
+        11.446549,
+        0.336776
+      ],
+      "object_id": "0000222",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000223": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007835,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-0.98,48.81,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -0.983898,
+        48.812473,
+        0.777021
+      ],
+      "object_id": "0000223",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000224": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-1.31,2.83,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -1.312761,
+        2.831772,
+        0.777021
+      ],
+      "object_id": "0000224",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000225": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-1.74,23.47,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -1.741191,
+        23.467069,
+        0.33677
+      ],
+      "object_id": "0000225",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000226": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232332,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-1.77,35.14,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -1.774995,
+        35.140662,
+        0.322673
+      ],
+      "object_id": "0000226",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000227": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-10.08,33.30,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -10.082802,
+        33.304039,
+        0.211588
+      ],
+      "object_id": "0000227",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000228": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304974,
+        1.541557,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-10.10,42.26,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -10.09633,
+        42.259394,
+        0.87748
+      ],
+      "object_id": "0000228",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000229": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=office_v1|location=-10.83,10.73,0.53|size=0.69,0.69,1.07",
+      "location": [
+        -10.827445,
+        10.726754,
+        0.532218
+      ],
+      "object_id": "0000229",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000230": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937416,
+        1.007822,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-11.16,33.42,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -11.156049,
+        33.422665,
+        0.777022
+      ],
+      "object_id": "0000230",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000231": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.870061,
+        0.926327,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-11.50,50.30,1.28|size=0.87,0.93,0.95",
+      "location": [
+        -11.502207,
+        50.303923,
+        1.276486
+      ],
+      "object_id": "0000231",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000232": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-11.58,-26.51,0.33|size=0.18,0.30,0.67",
+      "location": [
+        -11.583753,
+        -26.514069,
+        0.332774
+      ],
+      "object_id": "0000232",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000233": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254484,
+        0.254486,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-11.69,34.24,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -11.687387,
+        34.236301,
+        0.151553
+      ],
+      "object_id": "0000233",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000234": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-12.11,11.33,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -12.106807,
+        11.333987,
+        0.322673
+      ],
+      "object_id": "0000234",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000235": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766452,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=office_v1|location=-13.34,24.95,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -13.340596,
+        24.945337,
+        0.532822
+      ],
+      "object_id": "0000235",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000236": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=office_v1|location=-13.58,11.69,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -13.576,
+        11.686001,
+        0.3575
+      ],
+      "object_id": "0000236",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000237": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-14.41,20.53,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -14.411241,
+        20.531253,
+        0.231406
+      ],
+      "object_id": "0000237",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000238": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-14.50,-3.06,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -14.500855,
+        -3.063138,
+        0.211589
+      ],
+      "object_id": "0000238",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000239": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.3,
+        0.715
+      ],
+      "key": "scene=office_v1|location=-14.65,-5.77,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -14.653709,
+        -5.76627,
+        0.3575
+      ],
+      "object_id": "0000239",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000240": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-14.72,1.71,0.89|size=1.30,1.54,1.75",
+      "location": [
+        -14.721573,
+        1.706848,
+        0.887076
+      ],
+      "object_id": "0000240",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000241": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-14.80,0.76,0.24|size=0.34,0.33,0.46",
+      "location": [
+        -14.802745,
+        0.760244,
+        0.240893
+      ],
+      "object_id": "0000241",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000242": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.176159,
+        0.256369,
+        0.577218
+      ],
+      "key": "scene=office_v1|location=-15.76,-11.70,1.36|size=0.18,0.26,0.58",
+      "location": [
+        -15.76456,
+        -11.69937,
+        1.355609
+      ],
+      "object_id": "0000242",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000243": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651266,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-15.80,37.58,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -15.798677,
+        37.582155,
+        0.588498
+      ],
+      "object_id": "0000243",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000244": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-15.86,36.08,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -15.860749,
+        36.079899,
+        0.151553
+      ],
+      "object_id": "0000244",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000245": {
+      "class_name": "chair",
+      "dimensions": [
+        0.63123,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-16.06,43.47,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -16.056145,
+        43.473641,
+        0.588498
+      ],
+      "object_id": "0000245",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000246": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-16.14,46.44,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -16.139999,
+        46.436001,
+        0.151553
+      ],
+      "object_id": "0000246",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000247": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=office_v1|location=-16.80,57.40,0.17|size=0.25,0.25,0.34",
+      "location": [
+        -16.799997,
+        57.396999,
+        0.1725
+      ],
+      "object_id": "0000247",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000248": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-16.81,44.66,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -16.806999,
+        44.659,
+        0.151553
+      ],
+      "object_id": "0000248",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000249": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254591,
+        0.254593,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-16.84,41.16,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -16.836799,
+        41.1582,
+        0.151553
+      ],
+      "object_id": "0000249",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000250": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-17.35,19.50,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -17.350519,
+        19.503275,
+        0.322673
+      ],
+      "object_id": "0000250",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000251": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766449,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=office_v1|location=-17.40,17.76,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -17.402924,
+        17.755504,
+        0.532822
+      ],
+      "object_id": "0000251",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000252": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-17.43,20.47,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -17.432494,
+        20.474843,
+        0.777021
+      ],
+      "object_id": "0000252",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000253": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.176156,
+        0.256424,
+        0.577218
+      ],
+      "key": "scene=office_v1|location=-17.51,15.08,1.40|size=0.18,0.26,0.58",
+      "location": [
+        -17.51,
+        15.0846,
+        1.395809
+      ],
+      "object_id": "0000253",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000254": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.182819,
+        0.295756,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-17.61,-9.35,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -17.608762,
+        -9.349336,
+        0.336775
+      ],
+      "object_id": "0000254",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000255": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.299999,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=office_v1|location=-17.63,15.20,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -17.631001,
+        15.2,
+        0.3575
+      ],
+      "object_id": "0000255",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000256": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631231,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-17.74,34.27,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -17.737821,
+        34.267675,
+        0.588498
+      ],
+      "object_id": "0000256",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000257": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.30489,
+        1.541447,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-18.71,24.79,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -18.710885,
+        24.794329,
+        0.877479
+      ],
+      "object_id": "0000257",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000258": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-19.05,44.75,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -19.048,
+        44.745998,
+        0.151553
+      ],
+      "object_id": "0000258",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000259": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-19.24,43.16,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -19.236305,
+        43.158251,
+        0.588498
+      ],
+      "object_id": "0000259",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000260": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-19.34,39.80,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -19.338232,
+        39.803869,
+        0.588498
+      ],
+      "object_id": "0000260",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000261": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631229,
+        0.651264,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-19.43,38.52,0.60|size=0.63,0.65,1.18",
+      "location": [
+        -19.427927,
+        38.517355,
+        0.60183
+      ],
+      "object_id": "0000261",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000262": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254486,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-19.66,35.17,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -19.6623,
+        35.173302,
+        0.151553
+      ],
+      "object_id": "0000262",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000263": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254486,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-19.67,41.13,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -19.6714,
+        41.132999,
+        0.151553
+      ],
+      "object_id": "0000263",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000264": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937418,
+        1.007822,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-2.09,-11.18,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -2.089049,
+        -11.183339,
+        0.777022
+      ],
+      "object_id": "0000264",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000265": {
+      "class_name": "chair",
+      "dimensions": [
+        0.766449,
+        0.734674,
+        1.060753
+      ],
+      "key": "scene=office_v1|location=-20.05,-9.72,0.53|size=0.77,0.73,1.06",
+      "location": [
+        -20.050465,
+        -9.723671,
+        0.532822
+      ],
+      "object_id": "0000265",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000266": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-20.22,-12.16,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -20.223727,
+        -12.160094,
+        0.877479
+      ],
+      "object_id": "0000266",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000267": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254486,
+        0.254482,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-21.12,45.17,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -21.118,
+        45.167,
+        0.151553
+      ],
+      "object_id": "0000267",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000268": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541607,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-21.16,50.27,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -21.161622,
+        50.273626,
+        0.877479
+      ],
+      "object_id": "0000268",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000269": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.305716,
+        1.542358,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-22.45,24.80,0.88|size=1.31,1.54,1.75",
+      "location": [
+        -22.45354,
+        24.804781,
+        0.877479
+      ],
+      "object_id": "0000269",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000270": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-22.52,32.24,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -22.521959,
+        32.236279,
+        0.476486
+      ],
+      "object_id": "0000270",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000271": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541607,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-22.62,50.26,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -22.617515,
+        50.260954,
+        0.877479
+      ],
+      "object_id": "0000271",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000272": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-22.67,39.48,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -22.665049,
+        39.484841,
+        0.211588
+      ],
+      "object_id": "0000272",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000273": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254482,
+        0.254486,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-22.74,35.39,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -22.736843,
+        35.391094,
+        0.151553
+      ],
+      "object_id": "0000273",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000274": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-22.75,30.72,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -22.745773,
+        30.724689,
+        0.231406
+      ],
+      "object_id": "0000274",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000275": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-22.76,49.50,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -22.763462,
+        49.504313,
+        0.211687
+      ],
+      "object_id": "0000275",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000276": {
+      "class_name": "chair",
+      "dimensions": [
+        0.820169,
+        1.040146,
+        0.79
+      ],
+      "key": "scene=office_v1|location=-22.76,9.35,0.40|size=0.82,1.04,0.79",
+      "location": [
+        -22.758998,
+        9.346999,
+        0.395
+      ],
+      "object_id": "0000276",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000277": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266987,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-22.78,47.15,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -22.784958,
+        47.14563,
+        0.322673
+      ],
+      "object_id": "0000277",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000278": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295757,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-22.84,31.52,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -22.839713,
+        31.524459,
+        0.336771
+      ],
+      "object_id": "0000278",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000279": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295752,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-23.06,46.54,0.33|size=0.18,0.30,0.67",
+      "location": [
+        -23.055426,
+        46.544628,
+        0.3327
+      ],
+      "object_id": "0000279",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000280": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541608,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-23.15,7.90,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -23.154391,
+        7.896667,
+        0.87748
+      ],
+      "object_id": "0000280",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000281": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-3.38,3.81,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -3.382505,
+        3.805794,
+        0.211588
+      ],
+      "object_id": "0000281",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000282": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295754,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-4.17,35.20,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -4.174074,
+        35.204165,
+        0.336778
+      ],
+      "object_id": "0000282",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000283": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-4.26,24.77,0.21|size=0.82,0.55,0.42",
+      "location": [
+        -4.259406,
+        24.771323,
+        0.211588
+      ],
+      "object_id": "0000283",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000284": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541607,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=-4.27,37.22,0.88|size=1.30,1.54,1.75",
+      "location": [
+        -4.273215,
+        37.216738,
+        0.877479
+      ],
+      "object_id": "0000284",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000285": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926327,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-4.31,46.52,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -4.306224,
+        46.516241,
+        0.476486
+      ],
+      "object_id": "0000285",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000286": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.60905,
+        0.648438,
+        0.667081
+      ],
+      "key": "scene=office_v1|location=-4.35,-0.79,1.13|size=0.61,0.65,0.67",
+      "location": [
+        -4.349916,
+        -0.793896,
+        1.130161
+      ],
+      "object_id": "0000286",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000287": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926331,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-4.53,29.39,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -4.530248,
+        29.393349,
+        0.476487
+      ],
+      "object_id": "0000287",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000288": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333945,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-4.61,22.63,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -4.612601,
+        22.63389,
+        0.231406
+      ],
+      "object_id": "0000288",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000289": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-4.64,18.70,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -4.64196,
+        18.703405,
+        0.322673
+      ],
+      "object_id": "0000289",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000290": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295753,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-4.65,48.35,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -4.654717,
+        48.34901,
+        0.336771
+      ],
+      "object_id": "0000290",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000291": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333946,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-4.66,53.91,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -4.661592,
+        53.907101,
+        0.231407
+      ],
+      "object_id": "0000291",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000292": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=-4.67,42.16,0.58|size=0.82,0.55,0.42",
+      "location": [
+        -4.670431,
+        42.160053,
+        0.581588
+      ],
+      "object_id": "0000292",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000293": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254527,
+        0.254527,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-5.14,2.15,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -5.143727,
+        2.146441,
+        0.150353
+      ],
+      "object_id": "0000293",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000294": {
+      "class_name": "chair",
+      "dimensions": [
+        0.820073,
+        1.040079,
+        0.79
+      ],
+      "key": "scene=office_v1|location=-5.60,30.35,0.39|size=0.82,1.04,0.79",
+      "location": [
+        -5.597,
+        30.350001,
+        0.394999
+      ],
+      "object_id": "0000294",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000295": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937417,
+        1.007823,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=-5.66,10.98,0.78|size=0.94,1.01,1.55",
+      "location": [
+        -5.658048,
+        10.976662,
+        0.777021
+      ],
+      "object_id": "0000295",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000296": {
+      "class_name": "chair",
+      "dimensions": [
+        0.820091,
+        1.040108,
+        0.79
+      ],
+      "key": "scene=office_v1|location=-5.68,32.68,0.40|size=0.82,1.04,0.79",
+      "location": [
+        -5.683001,
+        32.681999,
+        0.395
+      ],
+      "object_id": "0000296",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000297": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631578,
+        0.651613,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-5.87,36.79,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -5.866661,
+        36.792802,
+        0.588499
+      ],
+      "object_id": "0000297",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000298": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631817,
+        0.651848,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-6.04,39.04,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -6.040337,
+        39.044667,
+        0.588499
+      ],
+      "object_id": "0000298",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000299": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266992,
+        0.232333,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-6.18,57.28,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -6.180917,
+        57.279218,
+        0.322673
+      ],
+      "object_id": "0000299",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000300": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600201,
+        0.599369,
+        0.877231
+      ],
+      "key": "scene=office_v1|location=-6.44,46.00,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -6.438413,
+        46.003296,
+        0.437765
+      ],
+      "object_id": "0000300",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000301": {
+      "class_name": "chair",
+      "dimensions": [
+        0.599746,
+        0.598927,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=-6.61,45.07,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -6.605393,
+        45.071933,
+        0.438614
+      ],
+      "object_id": "0000301",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000302": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295755,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=-6.63,-3.14,0.34|size=0.18,0.30,0.67",
+      "location": [
+        -6.625575,
+        -3.135263,
+        0.336782
+      ],
+      "object_id": "0000302",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000303": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600121,
+        0.5993,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=-6.73,44.24,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -6.725159,
+        44.23562,
+        0.438614
+      ],
+      "object_id": "0000303",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000304": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254483,
+        0.254484,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-6.78,11.09,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -6.778986,
+        11.086577,
+        0.151553
+      ],
+      "object_id": "0000304",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000305": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926327,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-6.92,50.50,1.28|size=0.87,0.93,0.95",
+      "location": [
+        -6.923596,
+        50.498171,
+        1.276486
+      ],
+      "object_id": "0000305",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000306": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.3,
+        0.299999,
+        0.715
+      ],
+      "key": "scene=office_v1|location=-7.39,-11.38,0.36|size=0.30,0.30,0.71",
+      "location": [
+        -7.386,
+        -11.375,
+        0.3575
+      ],
+      "object_id": "0000306",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000307": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631332,
+        0.651352,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-7.44,39.92,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -7.441804,
+        39.915369,
+        0.588499
+      ],
+      "object_id": "0000307",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000308": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631294,
+        0.651313,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-7.67,36.20,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -7.667033,
+        36.197409,
+        0.588499
+      ],
+      "object_id": "0000308",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000309": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600093,
+        0.59927,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=-7.74,46.01,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -7.744813,
+        46.007465,
+        0.438614
+      ],
+      "object_id": "0000309",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000310": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600101,
+        0.599281,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=-7.81,44.18,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -7.812481,
+        44.182489,
+        0.438614
+      ],
+      "object_id": "0000310",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000311": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600105,
+        0.599281,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=-7.90,44.97,0.44|size=0.60,0.60,0.88",
+      "location": [
+        -7.902539,
+        44.972658,
+        0.438614
+      ],
+      "object_id": "0000311",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000312": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926329,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-7.95,1.31,0.48|size=0.87,0.93,0.95",
+      "location": [
+        -7.951419,
+        1.307118,
+        0.476487
+      ],
+      "object_id": "0000312",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000313": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-8.19,26.99,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -8.192251,
+        26.985822,
+        0.231406
+      ],
+      "object_id": "0000313",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000314": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631523,
+        0.651538,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-8.39,49.33,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -8.386764,
+        49.325337,
+        0.588499
+      ],
+      "object_id": "0000314",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000315": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.870071,
+        0.926317,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=-8.45,24.52,1.28|size=0.87,0.93,0.95",
+      "location": [
+        -8.445813,
+        24.522596,
+        1.276486
+      ],
+      "object_id": "0000315",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000316": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-8.99,-24.87,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -8.989486,
+        -24.874032,
+        0.231406
+      ],
+      "object_id": "0000316",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000317": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.26699,
+        0.232336,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-9.02,27.88,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -9.022011,
+        27.875829,
+        0.322673
+      ],
+      "object_id": "0000317",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000318": {
+      "class_name": "traffic_cone",
+      "dimensions": [
+        0.335697,
+        0.333944,
+        0.462812
+      ],
+      "key": "scene=office_v1|location=-9.04,-25.87,0.23|size=0.34,0.33,0.46",
+      "location": [
+        -9.037975,
+        -25.868451,
+        0.231406
+      ],
+      "object_id": "0000318",
+      "raw_class": "traffic_cone",
+      "scene": "office_v1"
+    },
+    "0000319": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631264,
+        0.65129,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-9.11,39.17,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -9.105986,
+        39.166959,
+        0.588499
+      ],
+      "object_id": "0000319",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000320": {
+      "class_name": "chair",
+      "dimensions": [
+        0.631634,
+        0.651663,
+        1.176997
+      ],
+      "key": "scene=office_v1|location=-9.31,36.59,0.59|size=0.63,0.65,1.18",
+      "location": [
+        -9.306457,
+        36.594379,
+        0.588499
+      ],
+      "object_id": "0000320",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000321": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.232334,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=-9.32,-18.13,0.32|size=0.27,0.23,0.64",
+      "location": [
+        -9.322974,
+        -18.125921,
+        0.322673
+      ],
+      "object_id": "0000321",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000322": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.254532,
+        0.254529,
+        0.302569
+      ],
+      "key": "scene=office_v1|location=-9.97,48.93,0.15|size=0.25,0.25,0.30",
+      "location": [
+        -9.973913,
+        48.933036,
+        0.151553
+      ],
+      "object_id": "0000322",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000323": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.18282,
+        0.295753,
+        0.67356
+      ],
+      "key": "scene=office_v1|location=0.00,59.75,0.34|size=0.18,0.30,0.67",
+      "location": [
+        0.004235,
+        59.752819,
+        0.336777
+      ],
+      "object_id": "0000323",
+      "raw_class": "fire_extinguisher",
+      "scene": "office_v1"
+    },
+    "0000324": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.25,
+        0.25,
+        0.345
+      ],
+      "key": "scene=office_v1|location=0.88,44.91,0.17|size=0.25,0.25,0.34",
+      "location": [
+        0.881114,
+        44.90966,
+        0.1725
+      ],
+      "object_id": "0000324",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000325": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600142,
+        0.599315,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=1.04,31.71,0.44|size=0.60,0.60,0.88",
+      "location": [
+        1.04359,
+        31.711576,
+        0.438614
+      ],
+      "object_id": "0000325",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000326": {
+      "class_name": "chair",
+      "dimensions": [
+        0.694386,
+        0.685674,
+        1.065394
+      ],
+      "key": "scene=office_v1|location=1.14,11.20,0.53|size=0.69,0.69,1.07",
+      "location": [
+        1.137128,
+        11.200449,
+        0.532218
+      ],
+      "object_id": "0000326",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000327": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=1.45,-5.58,0.21|size=0.82,0.55,0.42",
+      "location": [
+        1.450897,
+        -5.575952,
+        0.211588
+      ],
+      "object_id": "0000327",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000328": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600021,
+        0.5992,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=1.89,31.65,0.44|size=0.60,0.60,0.88",
+      "location": [
+        1.893203,
+        31.652006,
+        0.438614
+      ],
+      "object_id": "0000328",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000329": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600103,
+        0.599279,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=1.93,27.55,0.44|size=0.60,0.60,0.88",
+      "location": [
+        1.925011,
+        27.549909,
+        0.438614
+      ],
+      "object_id": "0000329",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000330": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600133,
+        0.599308,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=1.93,37.82,0.44|size=0.60,0.60,0.88",
+      "location": [
+        1.925025,
+        37.818776,
+        0.438614
+      ],
+      "object_id": "0000330",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000331": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600346,
+        0.599522,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.33,40.63,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.329913,
+        40.629876,
+        0.438614
+      ],
+      "object_id": "0000331",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000332": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600095,
+        0.59927,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.45,38.60,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.450166,
+        38.602273,
+        0.438614
+      ],
+      "object_id": "0000332",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000333": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.87006,
+        0.926327,
+        0.952973
+      ],
+      "key": "scene=office_v1|location=2.49,35.00,0.48|size=0.87,0.93,0.95",
+      "location": [
+        2.493941,
+        34.99711,
+        0.476487
+      ],
+      "object_id": "0000333",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000334": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600133,
+        0.599308,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.54,41.46,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.540578,
+        41.460775,
+        0.438614
+      ],
+      "object_id": "0000334",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000335": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600094,
+        0.599274,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.60,42.31,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.600161,
+        42.310387,
+        0.438614
+      ],
+      "object_id": "0000335",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000336": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600093,
+        0.599274,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.61,39.44,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.610186,
+        39.438463,
+        0.438614
+      ],
+      "object_id": "0000336",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000337": {
+      "class_name": "chair",
+      "dimensions": [
+        0.60071,
+        0.599888,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.64,28.53,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.636906,
+        28.527545,
+        0.438614
+      ],
+      "object_id": "0000337",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000338": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.266989,
+        0.23233,
+        0.644374
+      ],
+      "key": "scene=office_v1|location=2.70,48.65,0.32|size=0.27,0.23,0.64",
+      "location": [
+        2.702278,
+        48.651901,
+        0.322673
+      ],
+      "object_id": "0000338",
+      "raw_class": "wet_floor_sign",
+      "scene": "office_v1"
+    },
+    "0000339": {
+      "class_name": "chair",
+      "dimensions": [
+        0.599899,
+        0.599079,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=2.72,31.44,0.44|size=0.60,0.60,0.88",
+      "location": [
+        2.724077,
+        31.441328,
+        0.438614
+      ],
+      "object_id": "0000339",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000340": {
+      "class_name": "trash_can",
+      "dimensions": [
+        0.250038,
+        0.250037,
+        0.345
+      ],
+      "key": "scene=office_v1|location=2.76,24.46,0.17|size=0.25,0.25,0.34",
+      "location": [
+        2.764,
+        24.461003,
+        0.1725
+      ],
+      "object_id": "0000340",
+      "raw_class": "trash_can",
+      "scene": "office_v1"
+    },
+    "0000341": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815834,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=2.88,44.94,0.24|size=0.82,0.55,0.42",
+      "location": [
+        2.882651,
+        44.943543,
+        0.237043
+      ],
+      "object_id": "0000341",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000342": {
+      "class_name": "chair",
+      "dimensions": [
+        0.820045,
+        1.039953,
+        0.79
+      ],
+      "key": "scene=office_v1|location=2.98,51.97,0.40|size=0.82,1.04,0.79",
+      "location": [
+        2.98,
+        51.969006,
+        0.395
+      ],
+      "object_id": "0000342",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000343": {
+      "class_name": "chair",
+      "dimensions": [
+        0.820259,
+        1.040189,
+        0.79
+      ],
+      "key": "scene=office_v1|location=2.98,55.44,0.40|size=0.82,1.04,0.79",
+      "location": [
+        2.980001,
+        55.439995,
+        0.395
+      ],
+      "object_id": "0000343",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000344": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600471,
+        0.599651,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.39,38.72,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.389763,
+        38.722853,
+        0.438614
+      ],
+      "object_id": "0000344",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000345": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600609,
+        0.599785,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.39,39.63,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.389685,
+        39.627135,
+        0.438614
+      ],
+      "object_id": "0000345",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000346": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600121,
+        0.599304,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.43,37.85,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.429841,
+        37.849612,
+        0.438614
+      ],
+      "object_id": "0000346",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000347": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600121,
+        0.5993,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.47,41.47,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.469841,
+        41.470617,
+        0.438614
+      ],
+      "object_id": "0000347",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000348": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600609,
+        0.599785,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.58,40.69,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.579686,
+        40.692134,
+        0.438614
+      ],
+      "object_id": "0000348",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000349": {
+      "class_name": "chair",
+      "dimensions": [
+        0.600074,
+        0.599258,
+        0.877227
+      ],
+      "key": "scene=office_v1|location=3.70,42.19,0.44|size=0.60,0.60,0.88",
+      "location": [
+        3.697985,
+        42.191983,
+        0.438614
+      ],
+      "object_id": "0000349",
+      "raw_class": "chair",
+      "scene": "office_v1"
+    },
+    "0000350": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304969,
+        1.541558,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=3.94,5.34,0.88|size=1.30,1.54,1.75",
+      "location": [
+        3.936671,
+        5.343391,
+        0.877479
+      ],
+      "object_id": "0000350",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000351": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304969,
+        1.541558,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=4.00,-5.39,0.88|size=1.30,1.54,1.75",
+      "location": [
+        3.99633,
+        -5.39039,
+        0.877479
+      ],
+      "object_id": "0000351",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000352": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937418,
+        1.007822,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=4.29,-11.20,0.78|size=0.94,1.01,1.55",
+      "location": [
+        4.286072,
+        -11.198639,
+        0.777022
+      ],
+      "object_id": "0000352",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000353": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815837,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=4.78,-0.52,0.21|size=0.82,0.55,0.42",
+      "location": [
+        4.775657,
+        -0.516243,
+        0.211588
+      ],
+      "object_id": "0000353",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000354": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551528,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=5.11,24.68,0.21|size=0.82,0.55,0.42",
+      "location": [
+        5.110615,
+        24.682161,
+        0.211588
+      ],
+      "object_id": "0000354",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000355": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.81584,
+        0.551529,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=5.12,34.38,0.21|size=0.82,0.55,0.42",
+      "location": [
+        5.121385,
+        34.377881,
+        0.211588
+      ],
+      "object_id": "0000355",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    },
+    "0000356": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        0.937403,
+        1.007837,
+        1.554043
+      ],
+      "key": "scene=office_v1|location=5.35,29.75,1.15|size=0.94,1.01,1.55",
+      "location": [
+        5.345972,
+        29.749526,
+        1.147022
+      ],
+      "object_id": "0000356",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000357": {
+      "class_name": "potted_plant",
+      "dimensions": [
+        1.304918,
+        1.541607,
+        1.754959
+      ],
+      "key": "scene=office_v1|location=5.35,48.98,0.88|size=1.30,1.54,1.75",
+      "location": [
+        5.350412,
+        48.976629,
+        0.877479
+      ],
+      "object_id": "0000357",
+      "raw_class": "plant",
+      "scene": "office_v1"
+    },
+    "0000358": {
+      "class_name": "medical_bag",
+      "dimensions": [
+        0.815838,
+        0.551527,
+        0.420657
+      ],
+      "key": "scene=office_v1|location=5.67,57.02,0.21|size=0.82,0.55,0.42",
+      "location": [
+        5.670572,
+        57.015971,
+        0.211588
+      ],
+      "object_id": "0000358",
+      "raw_class": "medical_bag",
+      "scene": "office_v1"
+    }
+  },
+  "size_decimals": 2
+}

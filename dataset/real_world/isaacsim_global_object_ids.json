@@ -1,0 +1,62 @@
+{
+  "id_format": "seven_digit_numeric_string",
+  "id_source": "manual_static_landmark_annotation",
+  "location_decimals": 2,
+  "objects": {
+    "9000001": {
+      "class_name": "wet_floor_sign",
+      "dimensions": [
+        0.5085034930706024,
+        0.3756257408857345,
+        0.65
+      ],
+      "key": "scene=real_world_case_0|landmark=wet_floor_sign",
+      "location": [
+        3.3217236298662423,
+        13.193689031998748,
+        0.325
+      ],
+      "object_id": "9000001",
+      "raw_class": "wet_floor_sign",
+      "scene": "real_world_case_0",
+      "yaw_deg": 110.13703578078554
+    },
+    "9000002": {
+      "class_name": "fire_extinguisher",
+      "dimensions": [
+        0.23303893178701401,
+        0.1219269959628582,
+        0.48
+      ],
+      "key": "scene=real_world_case_0|landmark=fire_extinguisher",
+      "location": [
+        4.455500941079973,
+        16.868060758356446,
+        0.24
+      ],
+      "object_id": "9000002",
+      "raw_class": "fire_extinguisher",
+      "scene": "real_world_case_0",
+      "yaw_deg": 140.28581794626706
+    },
+    "9000003": {
+      "class_name": "chair",
+      "dimensions": [
+        0.7960336363315582,
+        0.6433452820777893,
+        1.0
+      ],
+      "key": "scene=real_world_case_0|landmark=blue_swivel_chair",
+      "location": [
+        5.4633000097647475,
+        20.58108954596713,
+        0.5
+      ],
+      "object_id": "9000003",
+      "raw_class": "chair",
+      "scene": "real_world_case_0",
+      "yaw_deg": 30.208495386599054
+    }
+  },
+  "size_decimals": 2
+}
