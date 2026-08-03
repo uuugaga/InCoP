@@ -138,9 +138,21 @@ class HeterModelBevfusionHighresIsaac(nn.Module):
         self.lidar_support_apply_to_feature = bool(
             mask_args.get("apply_to_feature", True)
         )
+        self.lidar_support_apply_to_ego_feature = bool(
+            mask_args.get("apply_to_ego_feature", True)
+        )
         self.lidar_support_apply_stage = str(
             mask_args.get("apply_stage", "encoder_output")
         ).lower()
+        if (
+            self.lidar_support_apply_to_feature
+            and not self.lidar_support_apply_to_ego_feature
+            and self.lidar_support_apply_stage != "pre_cooperative_fusion"
+        ):
+            raise ValueError(
+                "lidar_support_mask.apply_to_ego_feature=False requires "
+                "apply_stage='pre_cooperative_fusion'."
+            )
         self.fusion_net = self._build_fusion_net(args)
         message_backbone_args, decoder_args, shrink_args = self._resolve_decoder_args(args)
         self.message_backbone = (
@@ -599,6 +611,16 @@ class HeterModelBevfusionHighresIsaac(nn.Module):
             hard_support_2d = (support_mask_2d > 0).to(
                 dtype=raw_feature_2d.dtype
             )
+            if not self.lidar_support_apply_to_ego_feature:
+                # The first feature in each regrouped scene is the local ego.
+                # Preserve its complete BEV representation while leaving every
+                # partner feature hard-filtered by its own LiDAR support mask.
+                hard_support_2d = hard_support_2d.clone()
+                ego_indices = torch.cumsum(record_len, dim=0) - record_len
+                ego_indices = ego_indices.to(
+                    device=hard_support_2d.device, dtype=torch.long
+                )
+                hard_support_2d[ego_indices] = 1
             raw_feature_2d = raw_feature_2d * hard_support_2d
         debug_features = None
         if getattr(self, "save_feature_debug", False):
