@@ -6,7 +6,7 @@ InCoP studies indoor ground-to-ground collaborative perception with paired RGB a
 
 ## Data Preparation
 
-Place the released InCoP data under `dataset/` using the following layout:
+Download the released data from the [InCoP Dataset on Hugging Face](https://huggingface.co/datasets/uugaga/InCoP) and place it under `dataset/` using the following layout:
 
 ```text
 dataset/
@@ -22,6 +22,8 @@ dataset/
 ```
 
 The IsaacSim hospital data provides separate `train/`, `validate/`, and `test/` splits. The real-world configuration uses its `validate/` split for evaluation. Update `root_dir`, `validate_dir`, `test_dir`, and `heter.assignment_path` in the selected YAML file if the data is stored elsewhere.
+
+For synthetic-data generation, download [`IsaacSimAssets.tar.gz`](https://huggingface.co/datasets/uugaga/InCoP/blob/main/IsaacSimAssets.tar.gz) from the same Hugging Face repository. It contains the map and map-object assets required by [IsaacSimGenScript](https://github.com/uuugaga/InCoP/tree/main/IsaacSimGenScript).
 
 ## Codebase
 
